@@ -40,7 +40,7 @@
   "dependencies": {
     "cli-table": "^0.3.0",
     "debug": "^4.3.2",
-    "glob": "^10.0.0"
+    "glob": "^11.0.0"
   },
   "devDependencies": {
     "@forsakringskassan/eslint-config": "11.2.5",
