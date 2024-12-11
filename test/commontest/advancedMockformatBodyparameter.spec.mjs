@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import pkg from "../../test-server.js";
+import * as pkg from "../../test-server.js";
 
 const { hostname } = pkg;
 

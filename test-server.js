@@ -26,6 +26,6 @@ const server = app.listen(0, function () {
     const addr = server.address();
     console.log("Example app listening at port", addr.port);
 });
-const hostname = `localhost:${server.address().port}`;
+const hostname = `127.0.0.1:${server.address().port}`;
 
 export { server, hostname };

@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node-version: [20.x, 21.x]
+                node-version: [20.x, 22.x]
         steps:
             - uses: actions/checkout@v4
             - name: Use Node.js ${{ matrix.node-version }}
@@ -23,7 +23,6 @@ jobs:
             - name: Selftest
               run: npm run --if-present selftest
             - name: Integration test
-              if: matrix.node-version == '20.x'
               env:
                   WAIT_ON_TIMEOUT: 5000
               run: npm run vite
