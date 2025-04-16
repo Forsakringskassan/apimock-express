@@ -39,4 +39,30 @@ describe("js mocks", function () {
             "app/private/../v1",
         );
     });
+
+    test("commonjs file (.cjs)", async () => {
+        const res = await fetch(`http://${hostname}/api/js/commonjs`, {
+            method: "get",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const body = await res.json();
+        expect(body).to.deep.equal({
+            foo: "cjs",
+        });
+    });
+
+    test("esm file (.mjs)", async () => {
+        const res = await fetch(`http://${hostname}/api/js/esm`, {
+            method: "get",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const body = await res.json();
+        expect(body).to.deep.equal({
+            foo: "esm",
+        });
+    });
 });
