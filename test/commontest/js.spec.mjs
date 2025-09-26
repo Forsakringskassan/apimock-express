@@ -66,16 +66,33 @@ describe("js mocks", function () {
         });
     });
 
-    test("body function (default)", async () => {
+    test.only("body function (default)", async () => {
+        await fetch(`http://${hostname}/api/js/body-fn`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "BREADCRUMB-ID": "foo",
+            },
+            body: JSON.stringify({ hej: "1" }),
+        });
+        await fetch(`http://${hostname}/api/js/body-fn`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "BREADCRUMB-ID": "bar",
+            },
+            body: JSON.stringify({ hej: "2" }),
+        });
         const res = await fetch(`http://${hostname}/api/js/body-fn`, {
             method: "get",
             headers: {
                 "Content-Type": "application/json",
+                "BREADCRUMB-ID": "foo",
             },
         });
         const body = await res.json();
         expect(body).to.deep.equal({
-            foo: "esm-body-fn",
+            hej: "1",
         });
     });
 

@@ -41,8 +41,15 @@ export function advancedMockformat(
                 body: { error: "Malformed input body" },
             };
         } else {
+            let parsedBody: unknown = {};
+            try {
+                parsedBody = JSON.parse(body);
+            } catch {
+                /* do nothing */
+            }
             selectedResponse = selectResponse(
                 mockdata,
+                parsedBody,
                 requestParameters,
                 bodyParameters,
                 req.headers,
