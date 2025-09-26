@@ -4,7 +4,8 @@ export default {
     defaultResponse: {
         body(req) {
             const key = req.headers['breadcrumb-id'];
-            return state.value.get(key);
+            state.value.set(key, req.body);
+            return {};
         },
     },
 };
