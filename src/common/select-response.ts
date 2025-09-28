@@ -1,20 +1,25 @@
 import { defaultDelay, defaultStatus } from "../constants";
-import { type MockRequest, type Mock, type MockResponse } from "../mockfile";
+import { type Mock, type MockResponse } from "../mockfile";
 
 /** Append response with default data if missing */
-function normalizeResponse(request: {
-    headers: Record<string, string | string[] | undefined>,
-    cookies: Record<string, string>,
-    body: unknown
-}, response: MockResponse): MockResponse {
-    console.log('normalizeResponse', { response });
-
+function normalizeResponse(
+    request: {
+        headers: Record<string, string | string[] | undefined>;
+        cookies: Record<string, string>;
+        body: unknown;
+    },
+    response: MockResponse,
+): MockResponse {
     return {
         status: defaultStatus,
         delay: defaultDelay,
         ...response,
-        body: typeof response.body === 'function' ? response.body(request) : response.body,
-    }
+        body:
+            typeof response.body === "function"
+                ? // eslint-disable-next-line @typescript-eslint/no-unsafe-call -- append request
+                  response.body(request)
+                : response.body,
+    };
 }
 
 /**
@@ -25,6 +30,7 @@ function normalizeResponse(request: {
  *
  * @public
  */
+// eslint-disable-next-line @typescript-eslint/max-params -- technical debt
 export function selectResponse(
     mockdata: Mock,
     body: unknown,

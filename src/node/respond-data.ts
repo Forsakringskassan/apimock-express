@@ -11,7 +11,6 @@ export function respondData(
     res: ServerResponse,
     response: MockResponse | undefined,
 ): void {
-    console.log('respondData', { response });
     if (response) {
         if (typeof response === "string") {
             throw Error(

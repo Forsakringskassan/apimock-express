@@ -24,6 +24,7 @@ export function matchResponseBrowser(options: {
     mockdata: Mock[];
     requestUrl: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
+    body: unknown;
     bodyParameters: Record<string, unknown>;
     headers: Record<string, string | string[] | undefined>;
 }): MockResponse {
