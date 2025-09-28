@@ -11,7 +11,7 @@ export function matchResponse(options: {
     requestUrl: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
     requestParameters: Record<string, string | string[] | undefined>;
-    body: unknown;
+    body: string;
     bodyParameters: Record<string, unknown>;
     headers: Record<string, string | string[] | undefined>;
     cookies: Record<string, string>;
@@ -26,10 +26,18 @@ export function matchResponse(options: {
             continue;
         }
         const requestUrl = options.requestUrl.split("?")[0];
+
+        let parsedBody: unknown = {};
+        try {
+            parsedBody = JSON.parse(options.body);
+        } catch {
+            /* do nothing */
+        }
+
         if (meta.url === requestUrl && meta.method === options.method) {
             return selectResponse(
                 mock,
-                options.body,
+                parsedBody,
                 options.requestParameters,
                 options.bodyParameters,
                 options.headers,

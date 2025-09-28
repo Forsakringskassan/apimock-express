@@ -66,60 +66,60 @@ describe("js mocks", function () {
         });
     });
 
-    test.only("body function (default)", async () => {
-        await fetch(`http://${hostname}/api/js/body-fn`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-                "BREADCRUMB-ID": "foo",
-            },
-            body: JSON.stringify({ hej: "1" }),
+    describe("Mock saving values to a global state", () => {
+        test("should get default value when no data saved", async () => {
+            const res = await fetch(`http://${hostname}/api/js/body-fn`, {
+                method: "get",
+            });
+            const body = await res.json();
+            expect(body).to.deep.equal({
+                no: "data-saved",
+            });
         });
-        await fetch(`http://${hostname}/api/js/body-fn`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-                "BREADCRUMB-ID": "bar",
-            },
-            body: JSON.stringify({ hej: "2" }),
-        });
-        const res = await fetch(`http://${hostname}/api/js/body-fn`, {
-            method: "get",
-            headers: {
-                "Content-Type": "application/json",
-                "BREADCRUMB-ID": "foo",
-            },
-        });
-        const body = await res.json();
-        expect(body).to.deep.equal({
-            hej: "1",
-        });
-    });
 
-    test("body function (match)", async () => {
-        const res = await fetch(`http://${hostname}/api/js/body-fn`, {
-            method: "get",
-            headers: {
-                "Content-Type": "application/json",
-                "X-Foo": "1",
-            },
-        });
-        const body = await res.json();
-        expect(body).to.deep.equal({
-            foo: "bar",
-        });
-    });
+        test("should be able to post data and then retrieve the value", async () => {
+            await fetch(`http://${hostname}/api/js/body-fn`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                    "BREADCRUMB-ID": "foo",
+                },
+                body: JSON.stringify({ hej: "1" }),
+            });
+            await fetch(`http://${hostname}/api/js/body-fn`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                    "BREADCRUMB-ID": "bar",
+                },
+                body: JSON.stringify({ hej: "2" }),
+            });
 
-    test("reqeust function", async () => {
-        const res = await fetch(`http://${hostname}/api/js/request-fn`, {
-            method: "get",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            /* Get first saved value based by BREADCRUMB-ID */
+            const res = await fetch(`http://${hostname}/api/js/body-fn`, {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                    "BREADCRUMB-ID": "foo",
+                },
+            });
+            const body = await res.json();
+            expect(body).to.deep.equal({
+                hej: "1",
+            });
         });
-        const body = await res.json();
-        expect(body).to.deep.equal({
-            foo: "bar",
+
+        test("reqeust function", async () => {
+            const res = await fetch(`http://${hostname}/api/js/request-fn`, {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const body = await res.json();
+            expect(body).to.deep.equal({
+                foo: "bar",
+            });
         });
     });
 

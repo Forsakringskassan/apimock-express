@@ -1,6 +1,22 @@
 import { defaultDelay, defaultStatus } from "../constants";
 import { type Mock, type MockResponse } from "../mockfile";
 
+/**
+ * Enforce all headers in object to be in lower case. This is typically not a problem in node mode,
+ * since Express do this, but is needed if you run the mocks in browser mode
+ * */
+function enforceLowerCaseHeaders(
+    headers: undefined | Record<string, string | string[] | undefined>,
+): Record<string, string | string[] | undefined> {
+    const lowercase = {};
+    if (headers) {
+        for (const [key, value] of Object.entries(headers)) {
+            lowercase[key.toLocaleLowerCase()] = value;
+        }
+    }
+    return lowercase;
+}
+
 /** Append response with default data if missing */
 function normalizeResponse(
     request: {
@@ -41,8 +57,8 @@ export function selectResponse(
 ): MockResponse | undefined {
     const mockrequest = {
         body,
-        headers,
         cookies,
+        headers: enforceLowerCaseHeaders(headers),
     };
     const mockresponses = mockdata.responses ?? [];
 
@@ -57,7 +73,10 @@ export function selectResponse(
             matchParameters(bodyParameters, mockresponse.request.body);
         const headersMatch =
             !mockresponse.request.headers ||
-            matchParameters(headers, mockresponse.request.headers);
+            matchParameters(
+                headers,
+                enforceLowerCaseHeaders(mockresponse.request.headers),
+            );
         const cookiesMatch =
             !mockresponse.request.cookies ||
             matchParameters(cookies, mockresponse.request.cookies);
