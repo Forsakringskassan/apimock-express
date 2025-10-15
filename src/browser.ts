@@ -4,6 +4,7 @@ import { selectResponse } from "./common";
 import { type Mock, type MockResponse } from "./mockfile";
 
 export {
+    type FileStub,
     type Mock,
     type MockMatcher,
     type MockMeta,
