@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## [2.10.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.9.0...v2.10.0) (2025-10-16)
+
+### Features
+
+* new function matchRequest in browser mode ([043d6a9](https://github.com/Forsakringskassan/apimock-express/commit/043d6a98e819e4518b23d0832a065a62b1f7de1b))
+* response as function ([891d9e5](https://github.com/Forsakringskassan/apimock-express/commit/891d9e5ed25ed781d36933507f4075f52b6cbdde))
+
+### Bug Fixes
+
+* do not export matchResponse ([b84a2dc](https://github.com/Forsakringskassan/apimock-express/commit/b84a2dce81525ae87161402c9977a0fd60d03100))
+* non case sensitive boundary regexp ([3fc7b25](https://github.com/Forsakringskassan/apimock-express/commit/3fc7b2509cb8d93022e86244257d0215adfce0d0))
+
 ## [2.9.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.8.0...v2.9.0) (2025-10-10)
 
 ### Features
