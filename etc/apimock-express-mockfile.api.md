@@ -6,7 +6,7 @@
 
 // @public
 export interface Mock<T = unknown, U = unknown> {
-    defaultResponse: MockResponse<T>;
+    defaultResponse: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
     // (undocumented)
     meta?: MockMeta;
     responses?: Array<MockMatcher<T, U>>;
@@ -15,7 +15,7 @@ export interface Mock<T = unknown, U = unknown> {
 // @public
 export interface MockMatcher<T = unknown, U = unknown> {
     request: MockRequest<U>;
-    response: MockResponse<T>;
+    response: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
 }
 
 // @public
@@ -30,7 +30,7 @@ export interface MockMeta {
 export interface MockRequest<T = unknown> {
     body?: T;
     cookies?: Record<string, string>;
-    headers?: Record<string, string>;
+    headers?: Record<string, string | string[] | undefined>;
     parameters?: Record<string, string>;
 }
 

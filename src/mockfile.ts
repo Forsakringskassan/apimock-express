@@ -74,7 +74,7 @@ export interface MockRequest<T = unknown> {
     /**
      * A key to value mapping of headers to match.
      */
-    headers?: Record<string, string>;
+    headers?: Record<string, string | string[] | undefined>;
 
     /**
      * The request body to match.
@@ -93,7 +93,7 @@ export interface MockMatcher<T = unknown, U = unknown> {
     /**
      * The response (value) for this mock match.
      */
-    response: MockResponse<T>;
+    response: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
 
     /**
      * The request (key) for this mock match.
@@ -119,5 +119,5 @@ export interface Mock<T = unknown, U = unknown> {
     /**
      * The default response if no other match (from responses) could be found.
      */
-    defaultResponse: MockResponse<T>;
+    defaultResponse: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
 }
