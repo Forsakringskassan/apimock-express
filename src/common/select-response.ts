@@ -1,20 +1,6 @@
 import { defaultDelay, defaultStatus } from "../constants";
-import { type Mock, type MockResponse } from "../mockfile";
+import { type Mock, type MockRequest, type MockResponse } from "../mockfile";
 import { normalizeBody } from "./normalize-body";
-
-interface NormalizeRequest {
-    headers: Record<string, string | string[] | undefined>;
-    cookies: Record<string, string>;
-    body: unknown;
-}
-
-type BodyFunction = (request: NormalizeRequest) => string;
-type ResponseFunction = (request: NormalizeRequest) => MockResponse;
-
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- intended
-function isFunction<T>(value: unknown): value is T {
-    return typeof value === "function";
-}
 
 /**
  * Enforce all headers in object to be in lower case. This is typically not a problem in node mode,
@@ -35,19 +21,21 @@ function enforceLowerCaseHeaders(
 /** Append response with default data if missing */
 
 function normalizeResponse(
-    request: NormalizeRequest,
-    response: MockResponse | ResponseFunction,
+    request: MockRequest,
+    response: MockResponse | ((req: MockRequest) => MockResponse),
 ): MockResponse {
-    if (isFunction<ResponseFunction>(response)) {
+    if (typeof response === "function") {
         return normalizeResponse(request, response(request));
     } else {
         return {
             status: defaultStatus,
             delay: defaultDelay,
             ...response,
-            body: isFunction<BodyFunction>(response.body)
-                ? response.body(request)
-                : response.body,
+            body:
+                typeof response.body === "function"
+                    ? /* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- intended */
+                      response.body(request)
+                    : response.body,
         };
     }
 }
@@ -70,7 +58,7 @@ export function selectResponse(
     cookies: Record<string, string>,
 ): MockResponse | undefined {
     const lowercaseHeaders = enforceLowerCaseHeaders(headers);
-    const mockrequest = {
+    const mockrequest: MockRequest = {
         body: normalizeBody(lowercaseHeaders, body),
         cookies,
         headers: lowercaseHeaders,
