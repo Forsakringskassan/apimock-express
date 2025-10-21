@@ -18,11 +18,13 @@ export {
 export { selectResponse } from "./common";
 export { type MiddlewareConfiguration } from "./middleware-configuration";
 export {
+    type DynamicMockResponse,
     type Mock,
     type MockMatcher,
     type MockMeta,
     type MockRequest,
     type MockResponse,
+    type StaticMockResponse,
 } from "./mockfile";
 export { type MockEntry } from "./mock-entry";
 export { type VitePluginOptions } from "./vite-plugin-options";

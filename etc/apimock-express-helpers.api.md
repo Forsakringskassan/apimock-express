@@ -11,8 +11,11 @@ export function createResponseByCookie<T, U = unknown>(cookieName: string, cooki
 export function defineMock<T = unknown, U = unknown>(mock: Mock<T, U>): Mock<T, U>;
 
 // @public
+export type DynamicMockResponse<T = unknown> = (req: MockRequest) => StaticMockResponse<T>;
+
+// @public
 export interface Mock<T = unknown, U = unknown> {
-    defaultResponse: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    defaultResponse: MockResponse<T>;
     // (undocumented)
     meta?: MockMeta;
     responses?: Array<MockMatcher<T, U>>;
@@ -21,7 +24,7 @@ export interface Mock<T = unknown, U = unknown> {
 // @public
 export interface MockMatcher<T = unknown, U = unknown> {
     request: MockRequest<U>;
-    response: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    response: MockResponse<T>;
 }
 
 // @public
@@ -41,7 +44,10 @@ export interface MockRequest<T = unknown> {
 }
 
 // @public
-export interface MockResponse<T = unknown> {
+export type MockResponse<T = unknown> = StaticMockResponse<T> | DynamicMockResponse<T>;
+
+// @public
+export interface StaticMockResponse<T = unknown> {
     body?: T | ((req: MockRequest) => T);
     delay?: number;
     description?: string;

@@ -1,6 +1,6 @@
 import { type ServerResponse } from "node:http";
 import { defaultContentType, defaultStatus } from "../constants";
-import { type MockResponse } from "../mockfile";
+import { type StaticMockResponse } from "../mockfile";
 
 /**
  * Write the selected response to the client.
@@ -9,7 +9,7 @@ import { type MockResponse } from "../mockfile";
  */
 export function respondData(
     res: ServerResponse,
-    response: MockResponse | undefined,
+    response: StaticMockResponse | undefined,
 ): void {
     if (response) {
         if (typeof response === "string") {
