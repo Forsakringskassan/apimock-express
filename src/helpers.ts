@@ -1,11 +1,13 @@
 import { type Mock, type MockMatcher, type MockResponse } from "./mockfile";
 
 export {
+    type DynamicMockResponse,
     type Mock,
     type MockMatcher,
     type MockMeta,
     type MockRequest,
     type MockResponse,
+    type StaticMockResponse,
 } from "./mockfile";
 
 /**

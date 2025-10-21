@@ -1,7 +1,7 @@
 import { type IncomingMessage, type ServerResponse } from "node:http";
 import url from "node:url";
 import { parseBody, parseCookies, parseDelay, selectResponse } from "../common";
-import { type Mock, type MockResponse } from "../mockfile";
+import { type Mock, type StaticMockResponse } from "../mockfile";
 import { respondData } from "./respond-data";
 
 /**
@@ -31,7 +31,7 @@ export function advancedMockformat(
             console.error(`Error parsing req ${req} body ${body}`, err);
             parseError = true;
         }
-        let selectedResponse: MockResponse | undefined;
+        let selectedResponse: StaticMockResponse | undefined;
         if (parseError) {
             console.error(
                 `Malformed input body. url: ${req.originalUrl ?? ""}`,
