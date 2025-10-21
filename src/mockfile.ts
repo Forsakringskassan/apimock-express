@@ -21,12 +21,12 @@ export interface MockMeta {
 }
 
 /**
- * Describes a mock response.
+ * A description of a static mock response.
  *
  * @public
  * @typeParam T - The type of the response body.
  */
-export interface MockResponse<T = unknown> {
+export interface StaticMockResponse<T = unknown> {
     /** Human readable label for this mock entry. */
     label?: string;
 
@@ -53,6 +53,26 @@ export interface MockResponse<T = unknown> {
      */
     body?: T | ((req: MockRequest) => T);
 }
+
+/**
+ * A callback function for dynamically loading a mock response.
+ *
+ * @public
+ * @typeParam T - The type of the response body.
+ */
+export type DynamicMockResponse<T = unknown> = (
+    req: MockRequest,
+) => StaticMockResponse<T>;
+
+/**
+ * Describes a mock response.
+ *
+ * @public
+ * @typeParam T - The type of the response body.
+ */
+export type MockResponse<T = unknown> =
+    | StaticMockResponse<T>
+    | DynamicMockResponse<T>;
 
 /**
  * Describes a request for the mock server to listen for.
@@ -93,7 +113,7 @@ export interface MockMatcher<T = unknown, U = unknown> {
     /**
      * The response (value) for this mock match.
      */
-    response: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    response: MockResponse<T>;
 
     /**
      * The request (key) for this mock match.
@@ -119,5 +139,5 @@ export interface Mock<T = unknown, U = unknown> {
     /**
      * The default response if no other match (from responses) could be found.
      */
-    defaultResponse: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    defaultResponse: MockResponse<T>;
 }
