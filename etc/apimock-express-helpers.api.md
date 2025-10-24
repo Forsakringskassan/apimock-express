@@ -4,6 +4,9 @@
 
 ```ts
 
+// @public
+export function createMockByCookie<TMockCookieValue extends string = string, TResponse = unknown>(options: MockCookieByOptions<TMockCookieValue, TResponse>): Mock<TResponse>;
+
 // @public (undocumented)
 export function createResponseByCookie<T, U = unknown>(cookieName: string, cookieValue: string, response: MockResponse<T>): MockMatcher<T, U>;
 
@@ -20,6 +23,23 @@ export interface Mock<T = unknown, U = unknown> {
     meta?: MockMeta;
     responses?: Array<MockMatcher<T, U>>;
 }
+
+// @public
+export interface MockCookie<TMockCookieValue extends string = string> {
+    name: string;
+    values: Record<string, TMockCookieValue>;
+}
+
+// @public
+export interface MockCookieByOptions<TMockCookieValue extends string = string, TResponse = unknown> {
+    cookieName: string;
+    defaultResponse: MockResponse<TResponse>;
+    meta?: MockMeta;
+    responses: Record<TMockCookieValue, MockResponse<TResponse>>;
+}
+
+// @public
+export type MockCookieValue<T extends MockCookie> = T["values"][keyof T["values"]];
 
 // @public
 export interface MockMatcher<T = unknown, U = unknown> {
