@@ -16,6 +16,23 @@ export interface Mock<T = unknown, U = unknown> {
 }
 
 // @public
+export interface MockCookie<TMockCookieValue extends string = string> {
+    name: string;
+    values: Record<string, TMockCookieValue>;
+}
+
+// @public
+export interface MockCookieByOptions<TMockCookieValue extends string = string, TResponse = unknown> {
+    cookieName: string;
+    defaultResponse: MockResponse<TResponse>;
+    meta?: MockMeta;
+    responses: Record<TMockCookieValue, MockResponse<TResponse>>;
+}
+
+// @public
+export type MockCookieValue<T extends MockCookie> = T["values"][keyof T["values"]];
+
+// @public
 export interface MockMatcher<T = unknown, U = unknown> {
     request: MockRequest<U>;
     response: MockResponse<T>;
