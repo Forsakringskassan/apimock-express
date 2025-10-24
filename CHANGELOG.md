@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.10.1](https://github.com/Forsakringskassan/apimock-express/compare/v2.10.0...v2.10.1) (2025-10-24)
+
+### Bug Fixes
+
+* do not stringify response body if plain text or html ([9cdfb9f](https://github.com/Forsakringskassan/apimock-express/commit/9cdfb9f3aa27e5bd8f57da5b84641829f88fa724))
+* updated typings for response & request ([b48c0d5](https://github.com/Forsakringskassan/apimock-express/commit/b48c0d5801908801fece63548ba0ac3405a3ce5d))
+
 ## [2.10.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.9.0...v2.10.0) (2025-10-16)
 
 ### Features
