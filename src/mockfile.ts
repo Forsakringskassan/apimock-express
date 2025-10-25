@@ -21,12 +21,12 @@ export interface MockMeta {
 }
 
 /**
- * Describes a mock response.
+ * A description of a static mock response.
  *
  * @public
  * @typeParam T - The type of the response body.
  */
-export interface MockResponse<T = unknown> {
+export interface StaticMockResponse<T = unknown> {
     /** Human readable label for this mock entry. */
     label?: string;
 
@@ -53,6 +53,26 @@ export interface MockResponse<T = unknown> {
      */
     body?: T | ((req: MockRequest) => T);
 }
+
+/**
+ * A callback function for dynamically loading a mock response.
+ *
+ * @public
+ * @typeParam T - The type of the response body.
+ */
+export type DynamicMockResponse<T = unknown> = (
+    req: MockRequest,
+) => StaticMockResponse<T>;
+
+/**
+ * Describes a mock response.
+ *
+ * @public
+ * @typeParam T - The type of the response body.
+ */
+export type MockResponse<T = unknown> =
+    | StaticMockResponse<T>
+    | DynamicMockResponse<T>;
 
 /**
  * Describes a request for the mock server to listen for.
@@ -93,7 +113,7 @@ export interface MockMatcher<T = unknown, U = unknown> {
     /**
      * The response (value) for this mock match.
      */
-    response: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    response: MockResponse<T>;
 
     /**
      * The request (key) for this mock match.
@@ -119,5 +139,60 @@ export interface Mock<T = unknown, U = unknown> {
     /**
      * The default response if no other match (from responses) could be found.
      */
-    defaultResponse: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    defaultResponse: MockResponse<T>;
+}
+
+/**
+ * Describes possible values for a cookie used to select a mock response.
+ *
+ * @public
+ * @typeParam TMockCookieValue - A (narrowed) string type constraint for possible values for the cookie.
+ */
+export interface MockCookie<TMockCookieValue extends string = string> {
+    /**
+     * The name of the cookie that specifies which mock response to use.
+     */
+    name: string;
+    /**
+     * A dictionary of possible values this cookie can be set to.
+     */
+    values: Record<string, TMockCookieValue>;
+}
+
+/**
+ * A value for a cookie specifying which mock response to use.
+ *
+ * @public
+ * @typeParam T - A mock cookie description defining the possible values for the cookie.
+ */
+export type MockCookieValue<T extends MockCookie> =
+    T["values"][keyof T["values"]];
+
+/**
+ * Describes a complete mock depending on the value of a cookie.
+ *
+ * @public
+ * @typeParam TMockCookieValue - Possible values for the cookie.
+ * @typeParam TResponse - The type of the response bodies.
+ */
+export interface MockCookieByOptions<
+    TMockCookieValue extends string = string,
+    TResponse = unknown,
+> {
+    /**
+     * Meta data for the mock.
+     */
+    meta?: MockMeta;
+    /**
+     * The name of the cookie that specifies which mock response to use.
+     */
+    cookieName: string;
+    /**
+     * The default response to use if the cookie is not set to a value with a defined mapping.
+     */
+    defaultResponse: MockResponse<TResponse>;
+    /**
+     * A dictionary of possible cookie values and their respective mock response.
+     */
+    responses: Record<TMockCookieValue, MockResponse<TResponse>>;
 }

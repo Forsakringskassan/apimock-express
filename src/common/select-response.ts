@@ -1,5 +1,10 @@
 import { defaultDelay, defaultStatus } from "../constants";
-import { type Mock, type MockRequest, type MockResponse } from "../mockfile";
+import {
+    type Mock,
+    type MockRequest,
+    type MockResponse,
+    type StaticMockResponse,
+} from "../mockfile";
 import { normalizeBody } from "./normalize-body";
 
 /**
@@ -22,8 +27,8 @@ function enforceLowerCaseHeaders(
 
 function normalizeResponse(
     request: MockRequest,
-    response: MockResponse | ((req: MockRequest) => MockResponse),
-): MockResponse {
+    response: MockResponse,
+): StaticMockResponse {
     if (typeof response === "function") {
         return normalizeResponse(request, response(request));
     } else {
@@ -56,7 +61,7 @@ export function selectResponse(
     bodyParameters: Record<string, unknown>,
     headers: Record<string, string | string[] | undefined>,
     cookies: Record<string, string>,
-): MockResponse | undefined {
+): StaticMockResponse | undefined {
     const lowercaseHeaders = enforceLowerCaseHeaders(headers);
     const mockrequest: MockRequest = {
         body: normalizeBody(lowercaseHeaders, body),

@@ -7,6 +7,9 @@
 // @public
 export function appendBasePath(mocks: Mock[], basePath: string): Mock[];
 
+// @public
+export type DynamicMockResponse<T = unknown> = (req: MockRequest) => StaticMockResponse<T>;
+
 // @public (undocumented)
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -34,7 +37,7 @@ export interface MatchResponseBrowserInterface {
 
 // @public
 export interface Mock<T = unknown, U = unknown> {
-    defaultResponse: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    defaultResponse: MockResponse<T>;
     // (undocumented)
     meta?: MockMeta;
     responses?: Array<MockMatcher<T, U>>;
@@ -43,7 +46,7 @@ export interface Mock<T = unknown, U = unknown> {
 // @public
 export interface MockMatcher<T = unknown, U = unknown> {
     request: MockRequest<U>;
-    response: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    response: MockResponse<T>;
 }
 
 // @public
@@ -63,7 +66,13 @@ export interface MockRequest<T = unknown> {
 }
 
 // @public
-export interface MockResponse<T = unknown> {
+export type MockResponse<T = unknown> = StaticMockResponse<T> | DynamicMockResponse<T>;
+
+// @public
+export function selectResponse(mockdata: Mock, body: string, requestparameters: Record<string, string | string[] | undefined>, bodyParameters: Record<string, unknown>, headers: Record<string, string | string[] | undefined>, cookies: Record<string, string>): StaticMockResponse | undefined;
+
+// @public
+export interface StaticMockResponse<T = unknown> {
     body?: T | ((req: MockRequest) => T);
     delay?: number;
     description?: string;
@@ -71,9 +80,6 @@ export interface MockResponse<T = unknown> {
     label?: string;
     status?: number;
 }
-
-// @public
-export function selectResponse(mockdata: Mock, body: string, requestparameters: Record<string, string | string[] | undefined>, bodyParameters: Record<string, unknown>, headers: Record<string, string | string[] | undefined>, cookies: Record<string, string>): MockResponse | undefined;
 
 // (No @packageDocumentation comment for this package)
 

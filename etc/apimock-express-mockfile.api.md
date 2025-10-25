@@ -5,17 +5,37 @@
 ```ts
 
 // @public
+export type DynamicMockResponse<T = unknown> = (req: MockRequest) => StaticMockResponse<T>;
+
+// @public
 export interface Mock<T = unknown, U = unknown> {
-    defaultResponse: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    defaultResponse: MockResponse<T>;
     // (undocumented)
     meta?: MockMeta;
     responses?: Array<MockMatcher<T, U>>;
 }
 
 // @public
+export interface MockCookie<TMockCookieValue extends string = string> {
+    name: string;
+    values: Record<string, TMockCookieValue>;
+}
+
+// @public
+export interface MockCookieByOptions<TMockCookieValue extends string = string, TResponse = unknown> {
+    cookieName: string;
+    defaultResponse: MockResponse<TResponse>;
+    meta?: MockMeta;
+    responses: Record<TMockCookieValue, MockResponse<TResponse>>;
+}
+
+// @public
+export type MockCookieValue<T extends MockCookie> = T["values"][keyof T["values"]];
+
+// @public
 export interface MockMatcher<T = unknown, U = unknown> {
     request: MockRequest<U>;
-    response: MockResponse<T> | ((req: MockRequest) => MockResponse<T>);
+    response: MockResponse<T>;
 }
 
 // @public
@@ -35,7 +55,10 @@ export interface MockRequest<T = unknown> {
 }
 
 // @public
-export interface MockResponse<T = unknown> {
+export type MockResponse<T = unknown> = StaticMockResponse<T> | DynamicMockResponse<T>;
+
+// @public
+export interface StaticMockResponse<T = unknown> {
     body?: T | ((req: MockRequest) => T);
     delay?: number;
     description?: string;

@@ -545,4 +545,66 @@ Delaying a response:
 }
 ```
 
+### Using Helpers
+
+It is often simpler to setup mocks using the provided helper functions.
+
+#### The `createMockByCookie(...)` Helper Function
+
+The `createMockByCookie(...)` helper function sets up mock responses according to a specific cookie.
+If used correctly, Typescript can also help to provide type safety for the cookie and its possible values.
+
+```ts
+import {
+    createMockByCookie,
+    type MockCookieValue,
+} from "@forsakringskassan/apimock-express/helpers";
+
+interface MyResponseType {
+    message: string;
+}
+
+export const getSomethingMockCookie = {
+    name: "api-get-something",
+    values: {
+        foo: "foo-200",
+        bar: "bar-200",
+        foobar: "foobar-500",
+    },
+} as const; // { ... } as const is important to get proper type safety
+
+// The type below can also be used by consumer for getting the cookie name and its possible values
+export type GetSomethingMockCookie = typeof getSomethingMockCookie;
+
+export default createMockByCookie<
+    MockCookieValue<GetSomethingMockCookie>,
+    MyResponseType
+>({
+    meta: {
+        title: "GET /something",
+    },
+    cookieName: getSomethingMockCookie.name,
+    responses: {
+        "foo-200": {
+            label: "Foo (200)",
+            body: { message: "yay" },
+        },
+        "bar-200": {
+            label: "Bar (200)",
+            body: { message: "nay" },
+        },
+        "foobar-500": {
+            label: "Foo (500)",
+            status: 500,
+        },
+    },
+    defaultResponse: {
+        label: "Default (200)",
+        body: { message: "default" },
+    },
+});
+```
+
+### More Examples
+
 For more examples see the tests in test/
