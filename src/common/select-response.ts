@@ -65,6 +65,7 @@ export function selectResponse(
     const lowercaseHeaders = enforceLowerCaseHeaders(headers);
     const mockrequest: MockRequest = {
         body: normalizeBody(lowercaseHeaders, body),
+        parameters: requestparameters,
         cookies,
         headers: lowercaseHeaders,
     };

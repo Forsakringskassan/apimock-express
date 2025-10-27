@@ -223,4 +223,60 @@ describe("js mocks", function () {
         expect(res.status).to.equal(201);
         expect(await res.text()).eq("my response body");
     });
+
+    describe("request parameters", () => {
+        test("should pass empty object to response function when there are no parameters in url", async () => {
+            const res = await fetch(
+                `http://${hostname}/api/js/response-function`,
+            );
+            expect(res.status).to.equal(200);
+            const jsonRes = await res.json();
+            expect(jsonRes.parameters).to.deep.equal({});
+        });
+
+        test("should pass object to response function when there is a single parameter in url", async () => {
+            const res = await fetch(
+                `http://${hostname}/api/js/response-function?foo=foolish`,
+            );
+            expect(res.status).to.equal(200);
+            const jsonRes = await res.json();
+            expect(jsonRes.parameters).to.deep.equal({
+                foo: "foolish",
+            });
+        });
+
+        test("should pass object to response function when there are multiple parameters in url", async () => {
+            const res = await fetch(
+                `http://${hostname}/api/js/response-function?foo=foolish&bar=barish`,
+            );
+            expect(res.status).to.equal(200);
+            const jsonRes = await res.json();
+            expect(jsonRes.parameters).to.deep.equal({
+                foo: "foolish",
+                bar: "barish",
+            });
+        });
+
+        test("should pass object to response function when there is an encoded parameter in url", async () => {
+            const res = await fetch(
+                `http://${hostname}/api/js/response-function?foo=foolish%20value`,
+            );
+            expect(res.status).to.equal(200);
+            const jsonRes = await res.json();
+            expect(jsonRes.parameters).to.deep.equal({
+                foo: "foolish value",
+            });
+        });
+
+        test("should pass object to response function when there is a parameter without value", async () => {
+            const res = await fetch(
+                `http://${hostname}/api/js/response-function?foo`,
+            );
+            expect(res.status).to.equal(200);
+            const jsonRes = await res.json();
+            expect(jsonRes.parameters).to.deep.equal({
+                foo: "",
+            });
+        });
+    });
 });
