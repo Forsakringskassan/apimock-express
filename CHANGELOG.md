@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [2.11.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.10.1...v2.11.0) (2025-10-28)
+
+### Features
+
+* add `createMockByCookie(...)` helper function ([64195f4](https://github.com/Forsakringskassan/apimock-express/commit/64195f40e2b2bbafdfc2f3df85268b5ecc1e9a62))
+
+### Bug Fixes
+
+* pass request parameters to response function ([54f3157](https://github.com/Forsakringskassan/apimock-express/commit/54f315796e39c212ed66e6792f6c76bbf085bb13))
+* widen `MockResponse` type to include dynamic (callback) response ([fd1a0a0](https://github.com/Forsakringskassan/apimock-express/commit/fd1a0a0427fe42396719b5abda28bad94b22afb5))
+
 ## [2.10.1](https://github.com/Forsakringskassan/apimock-express/compare/v2.10.0...v2.10.1) (2025-10-24)
 
 ### Bug Fixes
