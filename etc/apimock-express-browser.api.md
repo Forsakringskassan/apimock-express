@@ -62,7 +62,7 @@ export interface MockRequest<T = unknown> {
     body?: T;
     cookies?: Record<string, string>;
     headers?: Record<string, string | string[] | undefined>;
-    parameters?: Record<string, string>;
+    parameters?: Record<string, string | string[] | undefined>;
 }
 
 // @public

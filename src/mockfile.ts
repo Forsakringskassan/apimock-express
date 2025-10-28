@@ -89,7 +89,7 @@ export interface MockRequest<T = unknown> {
     /**
      * A key to value mapping of parameters to match.
      */
-    parameters?: Record<string, string>;
+    parameters?: Record<string, string | string[] | undefined>;
 
     /**
      * A key to value mapping of headers to match.
