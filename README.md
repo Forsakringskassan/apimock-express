@@ -608,3 +608,32 @@ export default createMockByCookie<
 ### More Examples
 
 For more examples see the tests in test/
+
+## Browser mode
+
+The matchRequest helper lets you run API mocks entirely in the browser.
+It accepts an array of mock definitions (created with defineMock) and a native Fetch `Request` object, and returns a simulated Fetch `Response` that behaves like a real response.
+
+```javascript
+import { matchRequest } from "@forsakringskassan/apimock-express/browser";
+import { defineMock } from "@forsakringskassan/apimock-express/helpers";
+
+// Create basic mock
+const mock = defineMock({
+    meta: {
+        url: "/private/foo/basic",
+        method: "GET",
+    },
+    defaultResponse: {
+        body: {
+            foo: "bar",
+        },
+    },
+});
+
+const req = new Request("/private/foo/basic", { method: "GET" });
+const fetchResponse = await matchRequest([mock], req);
+
+console.log(fetchResponse.status); // => 200
+console.log(await fetchResponse.json()); // => {"foo": "bar"}
+```
