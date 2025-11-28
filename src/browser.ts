@@ -1,7 +1,11 @@
 import { getCookies } from "./browser/get-cookies";
 import { getRequestParamsFromUrl } from "./browser/get-request-params-from-url";
 import { selectResponse } from "./common";
-import { type Mock, type MockResponse } from "./mockfile";
+import {
+    type Mock,
+    type MockResponse,
+    type StaticMockResponse,
+} from "./mockfile";
 
 export {
     type DynamicMockResponse,
@@ -24,14 +28,13 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
  *
  * @param mockdata - List of mock definitions
  * @param request - A Fetch API `Request`
- * @returns A `MockResponse` describing the response to use. If no mock
- * matches the request a default 404 mock response is returned.
+ * @returns A Fetch API `Response`. Will return a default 404 if no match is found
  * @public
  */
 export async function matchRequest(
     mockdata: Mock[],
     request: Request,
-): Promise<MockResponse> {
+): Promise<Response> {
     const url = request.url;
     const method = request.method as HttpMethod;
     const headers: Record<string, string | string[] | undefined> = {};
@@ -49,8 +52,17 @@ export async function matchRequest(
         bodyParameters: {},
         headers,
     };
+    const mockResponse = matchResponseBrowser(options) as StaticMockResponse;
 
-    return matchResponseBrowser(options);
+    const fetchOptions: ResponseInit = {
+        status: mockResponse.status,
+        headers: mockResponse.headers,
+    };
+    let body = mockResponse.body;
+    if (typeof body !== "string") {
+        body = JSON.stringify(body);
+    }
+    return new Response(body as BodyInit, fetchOptions);
 }
 /**
  * @public

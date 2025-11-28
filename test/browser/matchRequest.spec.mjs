@@ -21,15 +21,11 @@ describe("Browser", function () {
             const response = await getMockResponse("/not-found", "GET", {
                 "Content-Type": "application/json",
             });
-            expect(response).toStrictEqual({
-                body: {
-                    response:
-                        "default 404 - @forsakringskassan/apimock-express",
-                },
-                delay: 0,
-                label: "Mock 404 response",
-                status: 404,
+            const body = await response.json();
+            expect(body).toEqual({
+                response: "default 404 - @forsakringskassan/apimock-express",
             });
+            expect(response.status).toEqual(404);
         });
 
         test("Should get specific post request", async () => {
@@ -38,11 +34,11 @@ describe("Browser", function () {
                 "POST",
                 { "Content-Type": "application/json" },
             );
-            expect(response).toStrictEqual({
-                body: { post: "bar" },
-                delay: 0,
-                status: 200,
+            const body = await response.json();
+            expect(body).toEqual({
+                post: "bar",
             });
+            expect(response.status).toEqual(200);
         });
 
         test("Should be able to find mocks based on cookies", async () => {
@@ -54,13 +50,10 @@ describe("Browser", function () {
                 "GET",
                 { "Content-Type": "application/json" },
             );
-            expect(response).to.deep.equal({
-                body: "cookies",
-                status: 200,
-                delay: 0,
-            });
-        });
 
+            const body = await response.text();
+            expect(body).toEqual("cookies");
+        });
         test("should be able to save multiple binary blob text", async () => {
             const abc = new Blob(["Apimock"], { type: "text/plain" });
             const formData = new FormData();
@@ -79,14 +72,13 @@ describe("Browser", function () {
                 "GET",
                 { "BREADCRUMB-ID": "blob-text" },
             );
-            expect(response).to.deep.equal({
-                body: [
-                    { contentType: "text/plain", fileName: "blob" },
-                    { contentType: "text/plain", fileName: "blob" },
-                ],
-                delay: 0,
-                status: 200,
-            });
+
+            const body = await response.json();
+
+            expect(body).to.deep.equal([
+                { contentType: "text/plain", fileName: "blob" },
+                { contentType: "text/plain", fileName: "blob" },
+            ]);
         });
     });
 });
