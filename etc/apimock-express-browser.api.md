@@ -14,7 +14,7 @@ export type DynamicMockResponse<T = unknown> = (req: MockRequest) => StaticMockR
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 // @public
-export function matchRequest(mockdata: Mock[], request: Request): Promise<MockResponse>;
+export function matchRequest(mockdata: Mock[], request: Request): Promise<Response>;
 
 // @public
 export function matchResponseBrowser(options: MatchResponseBrowserInterface): MockResponse;
