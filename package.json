@@ -89,7 +89,7 @@
     "@types/debug": "4.1.12",
     "@types/node": "20.19.25",
     "esbuild": "0.27.0",
-    "express": "5.1.0",
+    "express": "5.2.0",
     "happy-dom": "20.0.11",
     "is-ci": "4.1.0",
     "npm-pkg-lint": "4.3.1",
