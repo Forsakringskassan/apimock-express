@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [2.12.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.11.0...v2.12.0) (2025-12-05)
+
+### Features
+
+* **deps:** update dependency glob to v13 ([cb9e3aa](https://github.com/Forsakringskassan/apimock-express/commit/cb9e3aabb2fa42abb22b297828f30ea0508e10c6))
+
+### Bug Fixes
+
+* update return value for matchRequest ([55ecf26](https://github.com/Forsakringskassan/apimock-express/commit/55ecf26624e44e82196c9655fedfe5207a9f34fc))
+
 ## [2.11.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.10.1...v2.11.0) (2025-10-28)
 
 ### Features
