@@ -120,6 +120,26 @@ The format of the files can be in a simple or an advanced format.
 - When using the simple format, the file content will be returned as the body of the response and http-status 200.
 - When using the advanced format, it is possible to specify different responses and different http-status depending on the request parameters, body parameters, request headers or cookies of the request.
 
+### Directories
+
+If the mock is a directory it can contain `__${method}.{js,json}` instead, for instance given the following configuration:
+
+```json
+{
+    "url": "/myApp/api/foo",
+    "dir": "mymockdirectory/foo"
+}
+```
+
+when `mymockdirectory/foo` is a directory the requests are mapped like this:
+
+| Method | Request          | Filename                          |
+| ------ | ---------------- | --------------------------------- |
+| `GET`  | `/myApp/api/foo` | `mymockdirectory/foo/__get.json`  |
+| `POST` | `/myApp/api/foo` | `mymockdirectory/foo/__post.json` |
+
+This is mostly useful when the API under mock does not have a prefix and we do not want to apply `/` as the mock url.
+
 ### Wildcard / global file
 
 If a file with the format `__default.json` exists in the folder, that one will be used if a specific file is not found.
