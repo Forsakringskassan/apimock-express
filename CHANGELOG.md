@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.13.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.12.0...v2.13.0) (2026-01-27)
+
+### Features
+
+* support using a directory as mock target ([f30db30](https://github.com/Forsakringskassan/apimock-express/commit/f30db30ed2eb67b01e3bbd95447fc1aa1b2f2385))
+
 ## [2.12.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.11.0...v2.12.0) (2025-12-05)
 
 ### Features
