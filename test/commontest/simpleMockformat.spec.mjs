@@ -109,4 +109,34 @@ describe("Simple mockformat", function () {
         );
         expect(body).to.deep.equal({ id: "apiX" });
     });
+
+    test("GET /api/dir/ should return test/api/dir/__get.json", async () => {
+        const expectedBody = fs.readFileSync("test/api/dir/__get.json", {
+            encoding: "utf-8",
+        });
+        const res = await fetch(`http://${hostname}/api/dir`, {
+            method: "get",
+        });
+        const body = await res.json();
+        expect(res.status).to.equal(200);
+        expect(res.headers.get("content-type")).to.equal(
+            "application/json;charset=UTF-8",
+        );
+        expect(body).to.deep.equal(JSON.parse(expectedBody));
+    });
+
+    test("POST /api/dir/ should return test/api/dir/__post.json", async () => {
+        const expectedBody = fs.readFileSync("test/api/dir/__post.json", {
+            encoding: "utf-8",
+        });
+        const res = await fetch(`http://${hostname}/api/dir`, {
+            method: "post",
+        });
+        const body = await res.json();
+        expect(res.status).to.equal(200);
+        expect(res.headers.get("content-type")).to.equal(
+            "application/json;charset=UTF-8",
+        );
+        expect(body).to.deep.equal(JSON.parse(expectedBody));
+    });
 });

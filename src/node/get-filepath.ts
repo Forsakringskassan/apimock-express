@@ -64,10 +64,18 @@ async function getFilepathInternal(
         "__default",
     )}.*{js,json}`;
     const globPattern = `${appendMethodType(req, filepath)}.*{js,json}`;
-    const files = await glob(globPattern);
+    const dirPattern = `${filepath}/__${req.method?.toLowerCase() ?? "get"}.*{js,json}`;
 
     const wildcard = await glob(wildcardPattern);
+    const files = await glob(globPattern);
+    const dirFiles = await glob(dirPattern);
+
     const resolvedPath = path.resolve(process.cwd(), globPattern);
+
+    if (dirFiles.length > 0) {
+        return dirFiles[0];
+    }
+
     if (files.length === 0) {
         if (wildcard.length === 1) {
             return wildcard[0];
