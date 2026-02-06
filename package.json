@@ -87,7 +87,7 @@
     "@html-validate/release-scripts": "7.1.0",
     "@microsoft/api-extractor": "7.56.0",
     "@types/debug": "4.1.12",
-    "@types/node": "20.19.30",
+    "@types/node": "20.19.31",
     "esbuild": "0.27.2",
     "express": "5.2.1",
     "happy-dom": "20.4.0",
