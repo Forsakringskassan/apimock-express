@@ -1,5 +1,6 @@
-import { describe, expect, test } from "vitest";
-import { hostname } from "../../test-server";
+import { describe, expect, inject, test } from "vitest";
+
+const hostname = inject("hostname");
 
 describe("js mocks", function () {
     test("plain file", async () => {

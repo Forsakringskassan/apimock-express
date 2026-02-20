@@ -1,5 +1,6 @@
-import { describe, expect, test } from "vitest";
-import { hostname } from "../../test-server";
+import { describe, expect, inject, test } from "vitest";
+
+const hostname = inject("hostname");
 
 describe("Wildcard", function () {
     test("should pick wildcard file for GET if specific not found", async () => {

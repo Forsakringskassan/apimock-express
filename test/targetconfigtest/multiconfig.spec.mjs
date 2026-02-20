@@ -1,6 +1,7 @@
 import fs from "node:fs";
-import { describe, expect, test } from "vitest";
-import { hostname } from "../../test-server";
+import { describe, expect, inject, test } from "vitest";
+
+const hostname = inject("hostname");
 
 describe("Multiconfig", function () {
     test("Local config GET /api2/simple/users/ should return test/api/simple/users.json", async () => {

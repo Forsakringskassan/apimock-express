@@ -1,5 +1,6 @@
-import { describe, expect, test } from "vitest";
-import { hostname } from "../../test-server";
+import { describe, expect, inject, test } from "vitest";
+
+const hostname = inject("hostname");
 
 describe("Intercepted call", function () {
     test("Should handle when an earlier middleware intercepts request body", async () => {
