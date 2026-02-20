@@ -28,7 +28,7 @@ export function advancedMockformat(
             bodyParameters = parseBody(req, body);
         } catch (err) {
             /* eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions -- technical debt */
-            console.error(`Error parsing req ${req} body ${body}`, err);
+            console.error("Error parsing req %o body %s", req, body, err);
             parseError = true;
         }
         let selectedResponse: StaticMockResponse | undefined;
