@@ -27,14 +27,15 @@ export function advancedMockformat(
         try {
             bodyParameters = parseBody(req, body);
         } catch (err) {
-            console.error("Error parsing req %o body %s", req, body, err);
+            const url = req.originalUrl ?? "";
+            console.error(`Error parsing request "%s": %s`, url, err instanceof Error ? err.message : String(err));
+            console.group("Request body:");
+            console.error(body);
+            console.groupEnd();
             parseError = true;
         }
         let selectedResponse: StaticMockResponse | undefined;
         if (parseError) {
-            console.error(
-                `Malformed input body. url: ${req.originalUrl ?? ""}`,
-            );
             selectedResponse = {
                 status: 500,
                 body: { error: "Malformed input body" },
