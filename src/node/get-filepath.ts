@@ -22,13 +22,13 @@ export async function getFilepath(
     const errors: unknown[] = [];
     for (const match of matches) {
         try {
-            const reponse = await getFilepathInternal(
+            const response = await getFilepathInternal(
                 mockOptions,
                 req,
                 url,
                 match,
             );
-            return { index: match, filepath: reponse };
+            return { index: match, filepath: response };
         } catch (e: unknown) {
             errors.push(e);
         }
