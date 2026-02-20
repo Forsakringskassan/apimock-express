@@ -1,6 +1,7 @@
 import fs from "node:fs";
-import { describe, expect, test } from "vitest";
-import { hostname } from "../../test-server";
+import { describe, expect, inject, test } from "vitest";
+
+const hostname = inject("hostname");
 
 describe("Simple mockformat", function () {
     test("GET /api/simple/users/ should return test/api/simple/users.json", async () => {

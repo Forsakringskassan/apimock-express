@@ -1,5 +1,6 @@
-import { describe, expect, test } from "vitest";
-import { hostname } from "../../test-server";
+import { describe, expect, inject, test } from "vitest";
+
+const hostname = inject("hostname");
 
 describe("Basedelay", function () {
     const DELAY_TIME = 1000;

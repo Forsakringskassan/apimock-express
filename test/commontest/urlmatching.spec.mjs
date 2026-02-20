@@ -1,6 +1,7 @@
 import fs from "node:fs";
-import { describe, expect, test } from "vitest";
-import { hostname } from "../../test-server";
+import { describe, expect, inject, test } from "vitest";
+
+const hostname = inject("hostname");
 
 describe("Url matching", function () {
     test("A correct url that starts with mock url should match", async () => {
