@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.14.1](https://github.com/Forsakringskassan/apimock-express/compare/v2.14.0...v2.14.1) (2026-02-20)
+
+### Bug Fixes
+
+* clearer error message when a parse error occurrs ([edd73bb](https://github.com/Forsakringskassan/apimock-express/commit/edd73bbfb0e7743bf1c5a74fdf926dd5f9265eac))
+
 ## [2.14.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.13.0...v2.14.0) (2026-02-20)
 
 ### Features
