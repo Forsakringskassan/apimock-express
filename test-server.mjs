@@ -1,3 +1,4 @@
+import path from "node:path";
 import express from "express";
 import mock from "./src/main";
 
@@ -10,6 +11,7 @@ const mockConfig = [
     { url: "/apiX/", dir: "test/apiX", delay: 1000 },
     { url: "/headers/", dir: "test/headers" },
     { url: "/relative-path", dir: "./test/paths/mocks" },
+    { url: "/absolute-path", dir: path.resolve("test/paths/mocks") },
     { url: "/api/", dir: "test/apiX" }, // Intended to map same api url to several folders
 ];
 
