@@ -12,23 +12,24 @@ export interface GetFilepathResponse {
  * Create the path to the mockfile depending on the request url and the http method.
  *
  * @internal
+ * @param indices - Indices of the mock entries matching the url prefix.
  */
 export async function getFilepath(
     mockOptions: NormalizedEntry[],
     req: { method?: string },
     url: string,
-    matches: number[],
+    indices: number[],
 ): Promise<GetFilepathResponse> {
     const errors: unknown[] = [];
-    for (const match of matches) {
+    for (const index of indices) {
         try {
-            const response = await getFilepathInternal(
+            const filepath = await getFilepathInternal(
                 mockOptions,
                 req,
                 url,
-                match,
+                index,
             );
-            return { index: match, filepath: response };
+            return { index, filepath };
         } catch (e: unknown) {
             errors.push(e);
         }
