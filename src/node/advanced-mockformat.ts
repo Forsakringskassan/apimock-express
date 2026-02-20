@@ -28,7 +28,11 @@ export function advancedMockformat(
             bodyParameters = parseBody(req, body);
         } catch (err) {
             const url = req.originalUrl ?? "";
-            console.error(`Error parsing request "%s": %s`, url, err instanceof Error ? err.message : String(err));
+            console.error(
+                `Error parsing request "%s": %s`,
+                url,
+                err instanceof Error ? err.message : String(err),
+            );
             console.group("Request body:");
             console.error(body);
             console.groupEnd();
