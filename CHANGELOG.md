@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.14.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.13.0...v2.14.0) (2026-02-20)
+
+### Features
+
+* handle absolute paths when defining mock directories ([f932ab7](https://github.com/Forsakringskassan/apimock-express/commit/f932ab72a986f7277c8b687db22720efff6fa93d))
+
 ## [2.13.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.12.0...v2.13.0) (2026-01-27)
 
 ### Features
