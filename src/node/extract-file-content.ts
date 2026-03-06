@@ -8,7 +8,7 @@ function parseJson(filepath: string, fileContent: string): Mock {
     try {
         return JSON.parse(fileContent) as Mock;
     } catch {
-        console.error(`Malformed file: ${filepath} with content `, fileContent);
+        console.error(`Malformed file: ${filepath} with content`, fileContent);
         return {
             defaultResponse: {
                 status: 500,
@@ -26,7 +26,7 @@ function parseJson(filepath: string, fileContent: string): Mock {
 export async function extractFileContent(filepath: string): Promise<Mock> {
     switch (path.extname(filepath)) {
         case ".json": {
-            const fileContent = await fs.readFile(filepath, "utf-8");
+            const fileContent = await fs.readFile(filepath, "utf8");
             return parseJson(filepath, fileContent);
         }
         case ".js":

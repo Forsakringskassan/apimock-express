@@ -5,8 +5,8 @@ import { describe, expect, test, vi } from "vitest";
 import { matchResponseBrowser } from "../../src/browser";
 import advancedGetMock from "../api/js/body-fn.mjs";
 import advancedPostMock from "../api/js/body-fn_post.mjs";
-import basicMock from "./basicMock.mjs";
-import basicMockPost from "./basicMockPost.mjs";
+import basicMockPost from "./basic-mock-post.mjs";
+import basicMock from "./basic-mock.mjs";
 
 describe("Browser", function () {
     describe("matchResponseBrowser", function () {

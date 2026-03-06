@@ -10,7 +10,7 @@ import { type Mock } from "../helpers";
 export function appendBasePath(mocks: Mock[], basePath: string): Mock[] {
     for (const mock of mocks) {
         if (!mock.meta?.url) {
-            throw Error(
+            throw new Error(
                 "Not possible to append basePath, mock is missing meta information",
             );
         }

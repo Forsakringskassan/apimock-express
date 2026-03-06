@@ -3,8 +3,8 @@
 
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { matchResponseBrowser } from "../../src/browser";
-import basicMock from "./basicMock.mjs";
-import basicMockPost from "./basicMockPost.mjs";
+import basicMockPost from "./basic-mock-post.mjs";
+import basicMock from "./basic-mock.mjs";
 
 describe("Browser", function () {
     afterEach(() => {

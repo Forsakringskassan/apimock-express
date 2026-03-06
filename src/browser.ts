@@ -40,6 +40,7 @@ export async function matchRequest(
     const headers: Record<string, string | string[] | undefined> = {};
     const bodyText = await request.text();
 
+    /* eslint-disable-next-line unicorn/no-array-for-each -- false positive */
     request.headers.forEach((value, key) => {
         headers[key] = value;
     });

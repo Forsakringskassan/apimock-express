@@ -6,7 +6,7 @@ const hostname = inject("hostname");
 describe("Multiconfig", function () {
     test("Local config GET /api2/simple/users/ should return test/api/simple/users.json", async () => {
         const expectedBody = fs.readFileSync("test/api/simple/users.json", {
-            encoding: "utf-8",
+            encoding: "utf8",
         });
         const res = await fetch(`http://${hostname}/api2/simple/users/`, {
             method: "get",

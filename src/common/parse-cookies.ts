@@ -8,10 +8,10 @@ export function parseCookies(request: {
 }): Record<string, string> {
     const cookies: Record<string, string> = {};
     if (request.headers.cookie) {
-        request.headers.cookie.split(";").forEach(function (cookie) {
+        for (const cookie of request.headers.cookie.split(";")) {
             const parts = cookie.split("=");
             cookies[parts[0].trim()] = (parts[1] || "").trim();
-        });
+        }
     }
     return cookies;
 }

@@ -34,7 +34,7 @@ export async function getFilepath(
             errors.push(e);
         }
     }
-    throw Error(errors.toString());
+    throw new Error(errors.toString());
 }
 
 /**
@@ -122,7 +122,7 @@ async function getFilepathInternal(
         if (wildcard.length === 1) {
             return wildcard[0];
         }
-        throw Error(`Cannot find file matching glob "${resolvedPath}"`);
+        throw new Error(`Cannot find file matching glob "${resolvedPath}"`);
     } else if (files.length > 1) {
         console.warn(
             `Found multiple files matching glob "%s", using "%s", found:`,

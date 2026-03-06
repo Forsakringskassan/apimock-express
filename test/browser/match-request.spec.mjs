@@ -4,8 +4,8 @@ import { describe, expect, test, vi } from "vitest";
 import { matchRequest } from "../../src/browser";
 import advancedGetMock from "../api/js/body-fn.mjs";
 import advancedPostMock from "../api/js/body-fn_post.mjs";
-import basicMock from "./basicMock.mjs";
-import basicMockPost from "./basicMockPost.mjs";
+import basicMockPost from "./basic-mock-post.mjs";
+import basicMock from "./basic-mock.mjs";
 
 async function getMockResponse(url, method = "GET", headers = {}, body) {
     const req = new Request(url, { method, headers, body });
