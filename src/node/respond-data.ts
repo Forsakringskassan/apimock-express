@@ -13,7 +13,7 @@ export function respondData(
 ): void {
     if (response) {
         if (typeof response === "string") {
-            throw Error(
+            throw new TypeError(
                 `response should be an object, with optional status and body attributes`,
             );
         }

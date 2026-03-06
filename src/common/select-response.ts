@@ -71,9 +71,7 @@ export function selectResponse(
     };
     const mockresponses = mockdata.responses ?? [];
 
-    /* eslint-disable-next-line @typescript-eslint/prefer-for-of -- technical debt */
-    for (let i = 0; i < mockresponses.length; i++) {
-        const mockresponse = mockresponses[i];
+    for (const mockresponse of mockresponses) {
         const parametersMatch =
             !mockresponse.request.parameters ||
             matchParameters(requestparameters, mockresponse.request.parameters);
@@ -121,10 +119,7 @@ function matchParameters(
         return false;
     }
 
-    /* eslint-disable-next-line @typescript-eslint/prefer-for-of -- technical debt */
-    for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-
+    for (const key of keys) {
         if (typeof mockParameters[key] === "object") {
             //is object, match on next level
 

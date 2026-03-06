@@ -5,7 +5,7 @@ import * as esbuild from "esbuild";
 import { glob } from "glob";
 import isCI from "is-ci";
 
-const pkg = JSON.parse(await fs.readFile("package.json", "utf-8"));
+const pkg = JSON.parse(await fs.readFile("package.json", "utf8"));
 
 const extension = {
     esm: ".mjs",

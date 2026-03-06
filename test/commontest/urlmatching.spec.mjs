@@ -6,7 +6,7 @@ const hostname = inject("hostname");
 describe("Url matching", function () {
     test("A correct url that starts with mock url should match", async () => {
         const expectedBody = fs.readFileSync("test/api/simple/users.json", {
-            encoding: "utf-8",
+            encoding: "utf8",
         });
         const res = await fetch(`http://${hostname}/api/simple/users/`, {
             method: "get",

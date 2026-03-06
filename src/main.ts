@@ -14,7 +14,7 @@ import { type VitePluginOptions } from "./vite-plugin-options";
 export {
     type GenerateForBrowserOptions,
     generateForBrowser,
-} from "./node/generateForBrowser";
+} from "./node/generate-for-browser";
 export { selectResponse } from "./common";
 export { type MiddlewareConfiguration } from "./middleware-configuration";
 export {
@@ -59,7 +59,7 @@ function findMachingIndex(url: string): number[] {
         } else {
             debug(`Found another matching mock at ${i}:`, config);
         }
-        found.push(parseInt(i, 10));
+        found.push(Number.parseInt(i, 10));
     }
     return found;
 }

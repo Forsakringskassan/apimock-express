@@ -35,7 +35,7 @@ export function normalizeBody(
             messages = messages.filter((n) => n);
 
             const files: FileStub[] = [];
-            const contentTypeRegex = /Content-Type:\s*([^;\r\n]+)/i;
+            const contentTypeRegex = /content-type:\s*([^\n\r;]+)/i;
             const filenameRegex = /filename="(.*?)"/;
             for (const message of messages) {
                 const contentType = contentTypeRegex.exec(message);

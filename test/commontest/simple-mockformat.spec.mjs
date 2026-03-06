@@ -6,7 +6,7 @@ const hostname = inject("hostname");
 describe("Simple mockformat", function () {
     test("GET /api/simple/users/ should return test/api/simple/users.json", async () => {
         const expectedBody = fs.readFileSync("test/api/simple/users.json", {
-            encoding: "utf-8",
+            encoding: "utf8",
         });
         const res = await fetch(`http://${hostname}/api/simple/users/`, {
             method: "get",
@@ -21,7 +21,7 @@ describe("Simple mockformat", function () {
 
     test("GET /api/simple/users/1 should return test/api/simple/users/1.json", async () => {
         const expectedBody = fs.readFileSync("test/api/simple/users/1.json", {
-            encoding: "utf-8",
+            encoding: "utf8",
         });
         const res = await fetch(`http://${hostname}/api/simple/users/1`, {
             method: "get",
@@ -38,7 +38,7 @@ describe("Simple mockformat", function () {
         const expectedBody = fs.readFileSync(
             "test/api/simple/users_post.json",
             {
-                encoding: "utf-8",
+                encoding: "utf8",
             },
         );
         const res = await fetch(`http://${hostname}/api/simple/users/`, {
@@ -56,7 +56,7 @@ describe("Simple mockformat", function () {
         const expectedBody = fs.readFileSync(
             "test/api/simple/users/1_put.json",
             {
-                encoding: "utf-8",
+                encoding: "utf8",
             },
         );
         const res = await fetch(`http://${hostname}/api/simple/users/1`, {
@@ -73,7 +73,7 @@ describe("Simple mockformat", function () {
     test("DELETE /api/simple/users/ should return test/api/simple/users/1_delete.json", async () => {
         const expectedBody = fs.readFileSync(
             "test/api/simple/users/1_delete.json",
-            { encoding: "utf-8" },
+            { encoding: "utf8" },
         );
         const res = await fetch(`http://${hostname}/api/simple/users/1`, {
             method: "delete",
@@ -113,7 +113,7 @@ describe("Simple mockformat", function () {
 
     test("GET /api/dir/ should return test/api/dir/__get.json", async () => {
         const expectedBody = fs.readFileSync("test/api/dir/__get.json", {
-            encoding: "utf-8",
+            encoding: "utf8",
         });
         const res = await fetch(`http://${hostname}/api/dir`, {
             method: "get",
@@ -128,7 +128,7 @@ describe("Simple mockformat", function () {
 
     test("POST /api/dir/ should return test/api/dir/__post.json", async () => {
         const expectedBody = fs.readFileSync("test/api/dir/__post.json", {
-            encoding: "utf-8",
+            encoding: "utf8",
         });
         const res = await fetch(`http://${hostname}/api/dir`, {
             method: "post",

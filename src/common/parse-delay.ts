@@ -8,7 +8,7 @@ export function parseDelay(delay: number | undefined): number {
         return 0;
     }
     /* @ts-expect-error -- code doesn't make sense, technical debt. */
-    if (!isNaN(parseFloat(delay)) && isFinite(delay)) {
+    if (!Number.isNaN(Number.parseFloat(delay)) && Number.isFinite(delay)) {
         //delay is a number
         return delay;
     } else {
