@@ -1,8 +1,9 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { type MockCookieValue, createMockByCookie } from "./helpers";
 
 describe("createMockByCookie", () => {
-    test("should succesfully create mock with static responses", () => {
+    it("should succesfully create mock with static responses", () => {
+        expect.assertions(1);
         // Given
         const getSomethingMockCookie = {
             name: "api-get-something",
@@ -91,7 +92,8 @@ describe("createMockByCookie", () => {
         });
     });
 
-    test("should successfully create mock with a dynamic response", () => {
+    it("should successfully create mock with a dynamic response", () => {
+        expect.assertions(2);
         // Given
         const postDynamicMockCookie = {
             name: "api-post-dynamic",

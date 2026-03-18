@@ -1,14 +1,14 @@
 // @vitest-environment happy-dom
 /* global document */
 
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { matchResponseBrowser } from "../../src/browser";
 import advancedGetMock from "../api/js/body-fn.mjs";
 import advancedPostMock from "../api/js/body-fn_post.mjs";
 import basicMockPost from "./basic-mock-post.mjs";
 import basicMock from "./basic-mock.mjs";
 
-describe("Browser", function () {
+describe("browser", function () {
     describe("matchResponseBrowser", function () {
         const config = {
             mockdata: [
@@ -23,7 +23,8 @@ describe("Browser", function () {
             headers: undefined,
         };
 
-        test("Should return 404 response if no match", async () => {
+        it("should return 404 response if no match", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
                 requestUrl: "404",
@@ -40,7 +41,8 @@ describe("Browser", function () {
             });
         });
 
-        test("Should be able to send in full url", async () => {
+        it("should be able to send in full url", async () => {
+            expect.assertions(2);
             const customConfig = {
                 ...config,
                 requestUrl: "https://example.net/private/foo/basic?foo=bar",
@@ -61,7 +63,8 @@ describe("Browser", function () {
             });
         });
 
-        test("Should get default GET-response", async () => {
+        it("should get default GET-response", async () => {
+            expect.assertions(1);
             const response = matchResponseBrowser(config);
             expect(response).to.deep.equal({
                 body: { foo: "bar" },
@@ -70,7 +73,8 @@ describe("Browser", function () {
             });
         });
 
-        test("Should be able to find mocks based on cookies", async () => {
+        it("should be able to find mocks based on cookies", async () => {
+            expect.assertions(1);
             vi.spyOn(document, "cookie", "get").mockImplementation(
                 () => "foo=bar",
             );
@@ -82,7 +86,8 @@ describe("Browser", function () {
             });
         });
 
-        test("Should be able to find mocks query params", async () => {
+        it("should be able to find mocks query params", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
                 requestUrl: "/private/foo/basic?bar=foo&foo=bar",
@@ -95,8 +100,9 @@ describe("Browser", function () {
             });
         });
 
-        describe("Mock saving values to a global state", () => {
-            test("should get default value when no data saved", async () => {
+        describe("mock saving values to a global state", () => {
+            it("should get default value when no data saved", async () => {
+                expect.assertions(1);
                 const customConfig = {
                     ...config,
                     requestUrl: "/advanced/reading-mock",
@@ -109,7 +115,8 @@ describe("Browser", function () {
                 });
             });
 
-            test("should be able to post data and then retrieve the value", async () => {
+            it("should be able to post data and then retrieve the value", async () => {
+                expect.assertions(1);
                 let customConfig = {
                     ...config,
                     requestUrl: "/advanced/post-mock",

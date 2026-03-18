@@ -1,10 +1,11 @@
 import fs from "node:fs";
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Multiconfig", function () {
-    test("Local config GET /api2/simple/users/ should return test/api/simple/users.json", async () => {
+describe("multiconfig", function () {
+    it("local config GET /api2/simple/users/ should return test/api/simple/users.json", async () => {
+        expect.assertions(2);
         const expectedBody = fs.readFileSync("test/api/simple/users.json", {
             encoding: "utf8",
         });
@@ -16,7 +17,8 @@ describe("Multiconfig", function () {
         expect(body).to.deep.equal(JSON.parse(expectedBody));
     });
 
-    test("Multiple config GET /api2/hello should return test/api/hello.json", async () => {
+    it("multiple config GET /api2/hello should return test/api/hello.json", async () => {
+        expect.assertions(2);
         const expectedBody = '{ "id": "api" }\n';
         const res = await fetch(`http://${hostname}/api2/hello`, {
             method: "get",
@@ -26,7 +28,8 @@ describe("Multiconfig", function () {
         expect(body).to.deep.equal(JSON.parse(expectedBody));
     });
 
-    test("Multiple config GET /apiX/hello should return test/apiX/hello.json", async () => {
+    it("multiple config GET /apiX/hello should return test/apiX/hello.json", async () => {
+        expect.assertions(2);
         const expectedBody = '{ "id": "apiX" }\n';
         const res = await fetch(`http://${hostname}/apiX/hello`, {
             method: "get",

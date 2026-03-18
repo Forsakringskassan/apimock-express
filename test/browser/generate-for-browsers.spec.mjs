@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { appendBasePath, matchResponseBrowser } from "../../src/browser";
 import { generateForBrowser } from "../../src/main";
 
@@ -17,7 +17,8 @@ const config = {
 
 describe("generateForBrowser", function () {
     describe("generateForBrowser", function () {
-        test("Should return default response for .js", async () => {
+        it("should return default response for .js", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
             };
@@ -31,7 +32,8 @@ describe("generateForBrowser", function () {
             });
         });
 
-        test("Should return post", async () => {
+        it("should return post", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
             };
@@ -47,7 +49,8 @@ describe("generateForBrowser", function () {
             });
         });
 
-        test("Should return default response for .json", async () => {
+        it("should return default response for .json", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
             };
@@ -62,7 +65,8 @@ describe("generateForBrowser", function () {
             });
         });
 
-        test("Should return default response for .cjs", async () => {
+        it("should return default response for .cjs", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
             };
@@ -77,7 +81,8 @@ describe("generateForBrowser", function () {
             });
         });
 
-        test("Should return default response for .esm", async () => {
+        it("should return default response for .esm", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
             };
@@ -92,7 +97,8 @@ describe("generateForBrowser", function () {
             });
         });
 
-        test("Should be able to define base api path", async () => {
+        it("should be able to define base api path", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
             };
@@ -114,7 +120,8 @@ describe("generateForBrowser", function () {
             });
         });
 
-        test("Should be able to append a basePath afterwards with using appendBasePath", async () => {
+        it("should be able to append a basePath afterwards with using appendBasePath", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
             };

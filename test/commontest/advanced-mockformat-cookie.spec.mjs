@@ -1,10 +1,11 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Advanced mockformat", function () {
-    describe("Cookies", function () {
-        test("Should return the response for the first cookie match", async () => {
+describe("advanced mockformat", function () {
+    describe("cookies", function () {
+        it("should return the response for the first cookie match", async () => {
+            expect.assertions(3);
             const headers = {
                 Cookie: "foo=foo",
             };
@@ -20,7 +21,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "foo" });
         });
 
-        test("Should return the response for the second cookie match", async () => {
+        it("should return the response for the second cookie match", async () => {
+            expect.assertions(3);
             const headers = {
                 Cookie: "foo=bar",
             };
@@ -36,7 +38,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "bar" });
         });
 
-        test("Should return the default response if no match", async () => {
+        it("should return the default response if no match", async () => {
+            expect.assertions(3);
             const headers = {
                 Cookie: "asdf=asdf",
             };
@@ -52,7 +55,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "foofoofoo" });
         });
 
-        test("Should return the default response if no cookies in mockfile", async () => {
+        it("should return the default response if no cookies in mockfile", async () => {
+            expect.assertions(3);
             const headers = {
                 Cookie: "foo=foo",
             };
@@ -71,7 +75,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "foofoofoo" });
         });
 
-        test("Should return the default response if no cookies in request", async () => {
+        it("should return the default response if no cookies in request", async () => {
+            expect.assertions(3);
             const headers = {};
             const res = await fetch(`http://${hostname}/api/advanced/cookie`, {
                 method: "get",

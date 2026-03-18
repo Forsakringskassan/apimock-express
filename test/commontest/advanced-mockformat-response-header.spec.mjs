@@ -1,10 +1,11 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Advanced mockformat", function () {
-    describe("Headers", function () {
-        test("POST /headers/sign should respond with 302 redirect", async () => {
+describe("advanced mockformat", function () {
+    describe("headers", function () {
+        it("post /headers/sign should respond with 302 redirect", async () => {
+            expect.assertions(2);
             const res = await fetch(`http://${hostname}/headers/redirect`, {
                 method: "post",
                 redirect: "manual",
