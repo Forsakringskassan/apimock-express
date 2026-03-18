@@ -1,10 +1,11 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Advanced mockformat", function () {
-    describe("Headers", function () {
-        test("Should return the second response if one matches", async () => {
+describe("advanced mockformat", function () {
+    describe("headers", function () {
+        it("should return the second response if one matches", async () => {
+            expect.assertions(3);
             const headers = {
                 header1: "one",
                 header2: "2",
@@ -21,7 +22,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "one" });
         });
 
-        test("Should return the first response if both matches", async () => {
+        it("should return the first response if both matches", async () => {
+            expect.assertions(3);
             const headers = {
                 header1: "one",
                 header2: "two",
@@ -38,7 +40,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "onetwo" });
         });
 
-        test("Should return the first response if two of three matches", async () => {
+        it("should return the first response if two of three matches", async () => {
+            expect.assertions(3);
             const headers = {
                 header1: "one",
                 header2: "two",
@@ -56,7 +59,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "onetwo" });
         });
 
-        test("Should return the default response if no matches", async () => {
+        it("should return the default response if no matches", async () => {
+            expect.assertions(3);
             const headers = {
                 header1: "foo",
                 header2: "bar",

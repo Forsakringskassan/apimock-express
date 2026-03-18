@@ -1,12 +1,13 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Basedelay", function () {
+describe("basedelay", function () {
     const DELAY_TIME = 1000;
 
     describe("simple mockformat", function () {
-        test("GET /api2/hello should not be delayed", async () => {
+        it("get /api2/hello should not be delayed", async () => {
+            expect.assertions(3);
             const starttime = Date.now();
             const expectedBody = { id: "api" };
             const res = await fetch(`http://${hostname}/api2/hello`, {
@@ -20,7 +21,8 @@ describe("Basedelay", function () {
             expect(executionTime).to.be.at.most(DELAY_TIME);
         });
 
-        test("GET /apiX/hello should be delayed", async () => {
+        it("get /apiX/hello should be delayed", async () => {
+            expect.assertions(3);
             const starttime = Date.now();
             const expectedBody = { id: "apiX" };
             const res = await fetch(`http://${hostname}/apiX/hello`, {
@@ -36,7 +38,8 @@ describe("Basedelay", function () {
     });
 
     describe("advanced mockformat", function () {
-        test("GET /api2/helloAdv should not be delayed", async () => {
+        it("get /api2/helloAdv should not be delayed", async () => {
+            expect.assertions(3);
             const starttime = Date.now();
             const expectedBody = { id: "api" };
             const res = await fetch(`http://${hostname}/api2/helloAdv`, {
@@ -50,7 +53,8 @@ describe("Basedelay", function () {
             expect(executionTime).to.be.at.most(DELAY_TIME);
         });
 
-        test("GET /apiX/helloAdv should be delayed", async () => {
+        it("get /apiX/helloAdv should be delayed", async () => {
+            expect.assertions(3);
             const starttime = Date.now();
             const expectedBody = { id: "apiX" };
             const res = await fetch(`http://${hostname}/apiX/helloAdv`, {

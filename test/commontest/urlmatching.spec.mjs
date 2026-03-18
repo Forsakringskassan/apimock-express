@@ -1,10 +1,11 @@
 import fs from "node:fs";
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Url matching", function () {
-    test("A correct url that starts with mock url should match", async () => {
+describe("url matching", function () {
+    it("a correct url that starts with mock url should match", async () => {
+        expect.assertions(2);
         const expectedBody = fs.readFileSync("test/api/simple/users.json", {
             encoding: "utf8",
         });
@@ -16,7 +17,8 @@ describe("Url matching", function () {
         expect(body).to.deep.equal(JSON.parse(expectedBody));
     });
 
-    test("Must start with the mock url", async () => {
+    it("must start with the mock url", async () => {
+        expect.assertions(2);
         //The url matches but not in the beginning
         const expectedBody = "Cannot GET /foo/api/simple/users/";
         const res = await fetch(`http://${hostname}/foo/api/simple/users/`, {
@@ -27,7 +29,8 @@ describe("Url matching", function () {
         expect(body).to.have.string(expectedBody);
     });
 
-    test("A incorrect url should not match", async () => {
+    it("a incorrect url should not match", async () => {
+        expect.assertions(2);
         const expectedBody = "Cannot GET /foo/simple/users/";
         const res = await fetch(`http://${hostname}/foo/simple/users/`, {
             method: "get",

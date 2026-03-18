@@ -1,4 +1,4 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
@@ -11,7 +11,8 @@ function normalizePath(value) {
 }
 
 describe("relative path mocks", function () {
-    test("GET - should find json file", async () => {
+    it("get - should find json file", async () => {
+        expect.assertions(1);
         const res = await fetch(
             `http://${hostname}/relative-path/endpoint-json`,
             { method: "get" },
@@ -19,7 +20,8 @@ describe("relative path mocks", function () {
         expect(res.status).to.equal(200);
     });
 
-    test("GET - should find js file", async () => {
+    it("get - should find js file", async () => {
+        expect.assertions(1);
         const res = await fetch(
             `http://${hostname}/relative-path/endpoint-js`,
             { method: "get" },
@@ -27,7 +29,8 @@ describe("relative path mocks", function () {
         expect(res.status).to.equal(200);
     });
 
-    test("GET - should handle missing file", async () => {
+    it("get - should handle missing file", async () => {
+        expect.assertions(2);
         const res = await fetch(`http://${hostname}/absolute-path/missing`, {
             method: "get",
         });
@@ -40,7 +43,8 @@ describe("relative path mocks", function () {
 });
 
 describe("absolute path mocks", function () {
-    test("GET - should find json file", async () => {
+    it("get - should find json file", async () => {
+        expect.assertions(1);
         const res = await fetch(
             `http://${hostname}/absolute-path/endpoint-json`,
             { method: "get" },
@@ -48,7 +52,8 @@ describe("absolute path mocks", function () {
         expect(res.status).to.equal(200);
     });
 
-    test("GET - should find js file", async () => {
+    it("get - should find js file", async () => {
+        expect.assertions(1);
         const res = await fetch(
             `http://${hostname}/absolute-path/endpoint-js`,
             { method: "get" },
@@ -56,7 +61,8 @@ describe("absolute path mocks", function () {
         expect(res.status).to.equal(200);
     });
 
-    test("GET - should handle missing file", async () => {
+    it("get - should handle missing file", async () => {
+        expect.assertions(2);
         const res = await fetch(`http://${hostname}/absolute-path/missing`, {
             method: "get",
         });

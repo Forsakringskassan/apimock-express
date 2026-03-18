@@ -1,9 +1,10 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Wildcard", function () {
-    test("should pick wildcard file for GET if specific not found", async () => {
+describe("wildcard", function () {
+    it("should pick wildcard file for GET if specific not found", async () => {
+        expect.assertions(2);
         const res = await fetch(`http://${hostname}/api/wildcard/123`, {
             method: "get",
         });
@@ -12,7 +13,8 @@ describe("Wildcard", function () {
         expect(body).to.deep.equal({ message: "Wildcard GET" });
     });
 
-    test("should pick wildcard file for POST if specific not found", async () => {
+    it("should pick wildcard file for POST if specific not found", async () => {
+        expect.assertions(2);
         const requestbody = {};
         const res = await fetch(`http://${hostname}/api/wildcard/123`, {
             method: "post",
