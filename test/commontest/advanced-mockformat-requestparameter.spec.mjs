@@ -1,10 +1,11 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Advanced mockformat", function () {
-    describe("Requestparameter", function () {
-        test("Should return the response for the first requestparameter match", async () => {
+describe("advanced mockformat", function () {
+    describe("requestparameter", function () {
+        it("should return the response for the first requestparameter match", async () => {
+            expect.assertions(3);
             const res = await fetch(
                 `http://${hostname}/api/advanced/requestparameter?foo=foo`,
                 { method: "get" },
@@ -17,7 +18,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "foo" });
         });
 
-        test("Should return the response for the second requestparameter match", async () => {
+        it("should return the response for the second requestparameter match", async () => {
+            expect.assertions(3);
             const res = await fetch(
                 `http://${hostname}/api/advanced/requestparameter?foo=bar`,
                 { method: "get" },
@@ -30,7 +32,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "bar" });
         });
 
-        test("Should return the default response if no match in requestparameter value", async () => {
+        it("should return the default response if no match in requestparameter value", async () => {
+            expect.assertions(3);
             const res = await fetch(
                 `http://${hostname}/api/advanced/requestparameter?foo=asdf`,
                 { method: "get" },
@@ -43,7 +46,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "foofoofoo" });
         });
 
-        test("Should return the default response if no match in requestparameter name", async () => {
+        it("should return the default response if no match in requestparameter name", async () => {
+            expect.assertions(3);
             const res = await fetch(
                 `http://${hostname}/api/advanced/requestparameter?bar=asdf`,
                 { method: "get" },
@@ -56,7 +60,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "foofoofoo" });
         });
 
-        test("Should return an error if no match and no default response", async () => {
+        it("should return an error if no match and no default response", async () => {
+            expect.assertions(3);
             const res = await fetch(
                 `http://${hostname}/api/advanced/requestparameter_no_defaultresponse`,
                 { method: "get" },
@@ -69,7 +74,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ error: "No response could be found" });
         });
 
-        test("Should return the default response if no requestparameters in mockfile", async () => {
+        it("should return the default response if no requestparameters in mockfile", async () => {
+            expect.assertions(3);
             const res = await fetch(
                 `http://${hostname}/api/advanced/requestparameter_no_parameters`,
                 { method: "get" },
@@ -83,8 +89,9 @@ describe("Advanced mockformat", function () {
         });
     });
 
-    describe("Requestparameters", function () {
-        test("Should return the default response if only one of two requestparameters matches", async () => {
+    describe("requestparameters", function () {
+        it("should return the default response if only one of two requestparameters matches", async () => {
+            expect.assertions(3);
             const res = await fetch(
                 `http://${hostname}/api/advanced/requestparameters?foo=bar`,
                 { method: "get" },
@@ -97,7 +104,8 @@ describe("Advanced mockformat", function () {
             expect(body).to.deep.equal({ message: "foofoofoo" });
         });
 
-        test("Should return the answer for both requestparameters match", async () => {
+        it("should return the answer for both requestparameters match", async () => {
+            expect.assertions(3);
             const res = await fetch(
                 `http://${hostname}/api/advanced/requestparameters?foo=bar&bar=foo`,
                 { method: "get" },

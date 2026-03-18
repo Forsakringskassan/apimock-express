@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 /* global document */
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { matchRequest } from "../../src/browser";
 import advancedGetMock from "../api/js/body-fn.mjs";
 import advancedPostMock from "../api/js/body-fn_post.mjs";
@@ -15,9 +15,10 @@ async function getMockResponse(url, method = "GET", headers = {}, body) {
     );
 }
 
-describe("Browser", function () {
+describe("browser", function () {
     describe("matchMockByRequest", function () {
-        test("Should return 404 response if no match", async () => {
+        it("should return 404 response if no match", async () => {
+            expect.assertions(2);
             const response = await getMockResponse("/not-found", "GET", {
                 "Content-Type": "application/json",
             });
@@ -25,10 +26,11 @@ describe("Browser", function () {
             expect(body).toEqual({
                 response: "default 404 - @forsakringskassan/apimock-express",
             });
-            expect(response.status).toEqual(404);
+            expect(response.status).toBe(404);
         });
 
-        test("Should get specific post request", async () => {
+        it("should get specific post request", async () => {
+            expect.assertions(2);
             const response = await getMockResponse(
                 "/private/foo/basic?foo=bar",
                 "POST",
@@ -38,10 +40,11 @@ describe("Browser", function () {
             expect(body).toEqual({
                 post: "bar",
             });
-            expect(response.status).toEqual(200);
+            expect(response.status).toBe(200);
         });
 
-        test("Should be able to find mocks based on cookies", async () => {
+        it("should be able to find mocks based on cookies", async () => {
+            expect.assertions(1);
             vi.spyOn(document, "cookie", "get").mockImplementation(
                 () => "foo=bar",
             );
@@ -52,9 +55,11 @@ describe("Browser", function () {
             );
 
             const body = await response.text();
-            expect(body).toEqual("cookies");
+            expect(body).toBe("cookies");
         });
-        test("should be able to save multiple binary blob text", async () => {
+
+        it("should be able to save multiple binary blob text", async () => {
+            expect.assertions(1);
             const abc = new Blob(["Apimock"], { type: "text/plain" });
             const formData = new FormData();
             formData.append("text", abc, "text.txt");

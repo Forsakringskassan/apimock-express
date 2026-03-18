@@ -1,9 +1,10 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Examplefile", function () {
-    test("Nothing matches", async () => {
+describe("examplefile", function () {
+    it("nothing matches", async () => {
+        expect.assertions(2);
         const requestbody = {};
         const res = await fetch(`http://${hostname}/api/examplefile`, {
             method: "post",
@@ -19,7 +20,8 @@ describe("Examplefile", function () {
         });
     });
 
-    test("One request parameter matches", async () => {
+    it("one request parameter matches", async () => {
+        expect.assertions(2);
         const requestbody = {};
         const res = await fetch(`http://${hostname}/api/examplefile?foo=bar`, {
             method: "post",
@@ -35,7 +37,8 @@ describe("Examplefile", function () {
         });
     });
 
-    test("Two request parameters matches", async () => {
+    it("two request parameters matches", async () => {
+        expect.assertions(2);
         const requestbody = {};
         const res = await fetch(
             `http://${hostname}/api/examplefile?foo=bar&bar=foo`,
@@ -54,7 +57,8 @@ describe("Examplefile", function () {
         });
     });
 
-    test("One body parameter matches", async () => {
+    it("one body parameter matches", async () => {
+        expect.assertions(2);
         const requestbody = { foo: "foo" };
         const res = await fetch(`http://${hostname}/api/examplefile`, {
             method: "post",
@@ -70,7 +74,8 @@ describe("Examplefile", function () {
         });
     });
 
-    test("Two body parameters matches", async () => {
+    it("two body parameters matches", async () => {
+        expect.assertions(2);
         const requestbody = {
             user: { firstname: "Luke", lastname: "Skywalker" },
         };
@@ -88,7 +93,8 @@ describe("Examplefile", function () {
         });
     });
 
-    test("Both request parameter and body matches", async () => {
+    it("both request parameter and body matches", async () => {
+        expect.assertions(2);
         const requestbody = { bar: "foo" };
         const res = await fetch(`http://${hostname}/api/examplefile?foo=bar`, {
             method: "post",
@@ -104,7 +110,8 @@ describe("Examplefile", function () {
         });
     });
 
-    test("One body parameter matches. Default status", async () => {
+    it("one body parameter matches. Default status", async () => {
+        expect.assertions(2);
         const requestbody = { foo: "bar" };
         const res = await fetch(`http://${hostname}/api/examplefile`, {
             method: "post",

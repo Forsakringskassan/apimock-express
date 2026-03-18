@@ -2,6 +2,7 @@ import defaultConfig, { defineConfig } from "@forsakringskassan/eslint-config";
 import cliConfig from "@forsakringskassan/eslint-config-cli";
 import typescriptConfig from "@forsakringskassan/eslint-config-typescript";
 import typeinfoConfig from "@forsakringskassan/eslint-config-typescript-typeinfo";
+import vitestConfig from "@forsakringskassan/eslint-config-vitest";
 
 export default [
     defineConfig({
@@ -22,6 +23,16 @@ export default [
     typescriptConfig(),
     typeinfoConfig(import.meta.dirname, {
         ignores: ["*.d.ts", "**/vite.config.cts", "**/vite.config.mts"],
+    }),
+
+    vitestConfig(),
+
+    defineConfig({
+        name: "local/spec-files-vitest-compat",
+        files: ["**/*.spec.{ts,mjs}"],
+        rules: {
+            "vitest/valid-expect": "off",
+        },
     }),
 
     defineConfig({
