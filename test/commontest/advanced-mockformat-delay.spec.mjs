@@ -1,12 +1,13 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Advanced mockformat", function () {
+describe("advanced mockformat", function () {
     const DELAY_TIME = 1000;
 
-    describe("Delay", function () {
-        test("GET /api/advanced/delay?foo=bar should not be delayed", async () => {
+    describe("delay", function () {
+        it("get /api/advanced/delay?foo=bar should not be delayed", async () => {
+            expect.assertions(3);
             const starttime = Date.now();
             const res = await fetch(
                 `http://${hostname}/api/advanced/delay?foo=bar`,
@@ -19,7 +20,8 @@ describe("Advanced mockformat", function () {
             expect(executionTime).to.be.at.most(DELAY_TIME);
         });
 
-        test("GET /api/advanced/delay?foo=foo should be delayed", async () => {
+        it("get /api/advanced/delay?foo=foo should be delayed", async () => {
+            expect.assertions(3);
             const starttime = Date.now();
             const res = await fetch(
                 `http://${hostname}/api/advanced/delay?foo=foo`,

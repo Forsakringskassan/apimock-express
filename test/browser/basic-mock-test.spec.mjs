@@ -1,16 +1,17 @@
 // @vitest-environment happy-dom
 /* global document */
 
-import { afterEach, describe, expect, test, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { matchResponseBrowser } from "../../src/browser";
 import basicMockPost from "./basic-mock-post.mjs";
 import basicMock from "./basic-mock.mjs";
 
-describe("Browser", function () {
+describe("browser", function () {
     afterEach(() => {
         vi.restoreAllMocks();
     });
-    describe("Basic", function () {
+
+    describe("basic", function () {
         const config = {
             mockdata: [basicMock, basicMockPost],
             requestUrl: "/private/foo/basic",
@@ -19,7 +20,8 @@ describe("Browser", function () {
             headers: undefined,
         };
 
-        test("Should get default GET-response", async () => {
+        it("should get default GET-response", async () => {
+            expect.assertions(1);
             const response = matchResponseBrowser(config);
             expect(response).to.deep.equal({
                 body: { foo: "bar" },
@@ -28,7 +30,8 @@ describe("Browser", function () {
             });
         });
 
-        test("Should remove query params in url", async () => {
+        it("should remove query params in url", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
                 requestUrl: "/private/foo/basic?foo=bar",
@@ -41,7 +44,8 @@ describe("Browser", function () {
             });
         });
 
-        test("Should get specific GET-response", async () => {
+        it("should get specific GET-response", async () => {
+            expect.assertions(1);
             const customConfig = {
                 ...config,
                 requestUrl: "/private/foo/basic?foo=bar&bar=foo",
@@ -54,7 +58,8 @@ describe("Browser", function () {
             });
         });
 
-        test("Should get specific GET-response based on cookies", async () => {
+        it("should get specific GET-response based on cookies", async () => {
+            expect.assertions(1);
             vi.spyOn(document, "cookie", "get").mockImplementation(
                 () => "foo=bar",
             );
@@ -69,7 +74,8 @@ describe("Browser", function () {
             });
         });
 
-        test("Should get default POST-response", async () => {
+        it("should get default POST-response", async () => {
+            expect.assertions(1);
             const customConfig = { ...config, method: "POST" };
             const response = matchResponseBrowser(customConfig);
             expect(response).to.deep.equal({

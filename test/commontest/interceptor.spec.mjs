@@ -1,9 +1,10 @@
-import { describe, expect, inject, test } from "vitest";
+import { describe, expect, inject, it } from "vitest";
 
 const hostname = inject("hostname");
 
-describe("Intercepted call", function () {
-    test("Should handle when an earlier middleware intercepts request body", async () => {
+describe("intercepted call", function () {
+    it("should handle when an earlier middleware intercepts request body", async () => {
+        expect.assertions(2);
         const res = await fetch(`http://${hostname}/api/intercepted`, {
             method: "get",
         });
