@@ -86,7 +86,7 @@
     "@forsakringskassan/prettier-config": "3.3.6",
     "@html-validate/release-scripts": "7.1.15",
     "@microsoft/api-extractor": "7.57.7",
-    "@types/debug": "4.1.12",
+    "@types/debug": "4.1.13",
     "@types/node": "20.19.37",
     "esbuild": "0.27.4",
     "express": "5.2.1",
