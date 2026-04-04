@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "rootDir": "./src/",
         "lib": ["es2023", "dom"],
         "module": "esnext",
         "target": "es2022",
