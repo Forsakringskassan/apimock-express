@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.15.1](https://github.com/Forsakringskassan/apimock-express/compare/v2.15.0...v2.15.1) (2026-04-10)
+
+### Bug Fixes
+
+* **deps:** update dependency vite to v8.0.5 [security] ([c3ac6cb](https://github.com/Forsakringskassan/apimock-express/commit/c3ac6cbc71cab7022bdac27df1cf2d567bb804c1))
+
 ## [2.15.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.14.1...v2.15.0) (2026-03-14)
 
 ### Features
