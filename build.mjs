@@ -40,7 +40,7 @@ for (const format of ["cjs", "esm"]) {
         outdir: path.join("dist"),
         format,
         platform: "node",
-        target: "node20",
+        target: "node22",
         logLevel: "info",
         metafile: true,
         external: pkg.externalDependencies,
