@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path/posix";
-import url from "node:url";
 
 import { type Mock } from "../mockfile";
 
@@ -32,9 +31,7 @@ export async function extractFileContent(filepath: string): Promise<Mock> {
         case ".js":
         case ".cjs":
         case ".mjs": {
-            let { default: mock } = (await import(
-                url.pathToFileURL(filepath).toString()
-            )) as {
+            let { default: mock } = (await import(filepath)) as {
                 default: Mock | { default: Mock };
             };
 
