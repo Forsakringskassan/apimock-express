@@ -6,6 +6,7 @@ import { version } from "../package.json";
 import { parseDelay } from "./common";
 import { type MiddlewareConfiguration } from "./middleware-configuration";
 import { type MockEntry } from "./mock-entry";
+import { type Mock } from "./mockfile";
 import { extractFileContent, getFilepath, respondWithMock } from "./node";
 import { respondData } from "./node/respond-data";
 import { type NormalizedEntry } from "./normalized-entry";
@@ -68,10 +69,68 @@ function toArray<T>(value: T | T[]): T[] {
     return Array.isArray(value) ? value : [value];
 }
 
+function isMockEntry(mock: MockEntry | Mock): mock is MockEntry {
+    return "dir" in mock;
+}
+
 interface Table {
     url: string;
     directory: string;
     delay: string;
+}
+
+function normalizeMockEntry(
+    option: MockEntry,
+    table: Table[],
+): NormalizedEntry {
+    table.push({
+        url: option.url,
+        directory: option.dir,
+        delay: option.delay ? `${String(option.delay)} ms` : "-",
+    });
+    return {
+        mockurl: option.url,
+        mockdir: option.dir,
+        delay: option.delay,
+    };
+}
+
+function normalizeInlineMock(option: Mock, table: Table[]): NormalizedEntry {
+    if (!option.meta?.url) {
+        throw new Error("Inline Mock must have meta.url defined");
+    }
+    table.push({
+        url: option.meta.url,
+        directory: "(inline)",
+        delay: "-",
+    });
+    return {
+        mockurl: option.meta.url,
+        mockdir: "",
+        delay: undefined,
+        inlineMock: option,
+    };
+}
+
+function findInlineMatch(
+    matches: number[],
+    method: string | undefined,
+): NormalizedEntry | undefined {
+    if (method === undefined) {
+        throw new Error("Request method is missing");
+    }
+    const index = matches.find((i) => {
+        const entry = mockOptions[i];
+        if (entry.inlineMock === undefined) {
+            return false;
+        }
+        const entryMethod = entry.inlineMock.meta?.method;
+        if (entryMethod === undefined) {
+            throw new Error("Inline Mock must have meta.method defined");
+        }
+        return entryMethod === method;
+    });
+    return index !== undefined ? mockOptions[index] : undefined;
 }
 
 /**
@@ -82,24 +141,18 @@ const apimock = {
      * Configure apimock-express.
      */
     config(
-        mocks: MockEntry | MockEntry[],
+        mocks: MockEntry | MockEntry[] | Mock | Mock[],
         userConfig: Partial<MiddlewareConfiguration> = {},
     ): void {
         const config = { ...defaultConfig, ...userConfig };
         const table: Table[] = [];
 
         mockOptions = toArray(mocks).map((option) => {
-            const mockOption: NormalizedEntry = {
-                mockurl: option.url,
-                mockdir: option.dir,
-                delay: option.delay,
-            };
-            table.push({
-                url: option.url,
-                directory: option.dir,
-                delay: option.delay ? `${String(option.delay)} ms` : "-",
-            });
-            return mockOption;
+            if (isMockEntry(option)) {
+                return normalizeMockEntry(option, table);
+            } else {
+                return normalizeInlineMock(option, table);
+            }
         });
 
         if (config.verbose) {
@@ -141,6 +194,16 @@ const apimock = {
                 "GET,PUT,POST,DELETE",
             );
             res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+            const inlineMatch = findInlineMatch(matches, req.method);
+            if (inlineMatch !== undefined) {
+                const baseDelay = parseDelay(inlineMatch.delay);
+                const inlineMock = inlineMatch.inlineMock;
+                if (inlineMock !== undefined) {
+                    respondWithMock(req, res, inlineMock, "", baseDelay);
+                    return;
+                }
+            }
 
             const { filepath, index } = await getFilepath(
                 mockOptions,
@@ -187,7 +250,7 @@ const apimock = {
      * @param options - Options
      */
     vitePlugin(
-        mocks: MockEntry | MockEntry[],
+        mocks: MockEntry | MockEntry[] | Mock | Mock[],
         options: Partial<VitePluginOptions> = {},
     ): { name: string } {
         const { enabled = true } = options;
@@ -220,7 +283,7 @@ const apimock = {
  * @param options - Options
  */
 export function vitePlugin(
-    mocks: MockEntry | MockEntry[],
+    mocks: MockEntry | MockEntry[] | Mock | Mock[],
     options: Partial<VitePluginOptions> = {},
 ): { name: string } {
     return apimock.vitePlugin(mocks, options);

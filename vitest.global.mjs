@@ -1,6 +1,7 @@
 import path from "node:path";
 import express from "express";
 import mock from "./src/main";
+import inlineApi from "./test/inline-api.mjs";
 
 /* eslint-disable-next-line sonarjs/x-powered-by -- only used for internal testing */
 const app = express();
@@ -14,6 +15,7 @@ const mockConfig = [
     { url: "/relative-path", dir: "./test/paths/mocks" },
     { url: "/absolute-path", dir: path.resolve("test/paths/mocks") },
     { url: "/api/", dir: "test/apiX" }, // Intended to map same api url to several folders
+    ...inlineApi,
 ];
 
 mock.config(mockConfig);

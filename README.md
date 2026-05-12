@@ -629,6 +629,90 @@ export default createMockByCookie<
 
 For more examples see the tests in test/
 
+## Inline mocks
+
+Inline mocks let you define mock responses directly in code instead of creating a folder structure.
+
+The URL and HTTP method are declared inside `meta` rather than being derived from the file path.
+
+### Basic inline mock
+
+```ts
+import apimock from "@forsakringskassan/apimock-express";
+import { defineMock } from "@forsakringskassan/apimock-express/helpers";
+
+const mock = defineMock({
+    meta: {
+        url: "/api/users",
+        method: "GET",
+    },
+    defaultResponse: {
+        status: 200,
+        body: [
+            { userId: 1, name: "Fred Flintstone" },
+            { userId: 2, name: "Barney Rubble" },
+        ],
+    },
+});
+
+apimock.config([mock]);
+```
+
+#### `meta.url`
+
+**Type:** `String`
+
+**Required:** yes
+
+The URL prefix that this mock responds to. Unlike file-based mocks, the URL must be explicitly set here.
+
+#### `meta.method`
+
+**Type:** `String` (`"GET"` | `"POST"` | `"PUT"` | `"DELETE"`)
+
+**Required:** no
+
+The HTTP method to match. When omitted the mock responds to requests of any method.
+
+### Mixing inline and file-based mocks
+
+Inline mocks and file-based mocks can be combined
+
+```ts
+apimock.config([
+    { url: "/api/foo", dir: "tests/mock/foo" },
+    defineMock({
+        meta: { url: "/api/bar", method: "GET" },
+        defaultResponse: { body: { bar: true } },
+    }),
+]);
+```
+
+When a request matches both an inline mock and a file-based mock, the inline mock takes precedence.
+
+### Inline mocks with conditional responses
+
+Inline mocks support the same advanced response matching as file-based mocks — matching on request parameters, headers, cookies, or body:
+
+```ts
+const mock = defineMock({
+    meta: {
+        url: "/api/users",
+        method: "POST",
+    },
+    responses: [
+        {
+            request: { body: { name: "" } },
+            response: { status: 400, body: { error: "Name is required" } },
+        },
+    ],
+    defaultResponse: {
+        status: 201,
+        body: { userId: 3, name: "New User" },
+    },
+});
+```
+
 ## Browser mode
 
 The matchRequest helper lets you run API mocks entirely in the browser.

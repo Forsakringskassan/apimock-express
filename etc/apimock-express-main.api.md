@@ -9,9 +9,9 @@ import { ServerResponse } from 'node:http';
 
 // @public (undocumented)
 const apimock: {
-    config(mocks: MockEntry | MockEntry[], userConfig?: Partial<MiddlewareConfiguration>): void;
+    config(mocks: MockEntry | MockEntry[] | Mock | Mock[], userConfig?: Partial<MiddlewareConfiguration>): void;
     mockRequest(req: IncomingMessage, res: ServerResponse, next: () => void): Promise<void>;
-    vitePlugin(mocks: MockEntry | MockEntry[], options?: Partial<VitePluginOptions>): {
+    vitePlugin(mocks: MockEntry | MockEntry[] | Mock | Mock[], options?: Partial<VitePluginOptions>): {
         name: string;
     };
 };
@@ -88,7 +88,7 @@ export interface StaticMockResponse<T = unknown> {
 }
 
 // @public
-export function vitePlugin(mocks: MockEntry | MockEntry[], options?: Partial<VitePluginOptions>): {
+export function vitePlugin(mocks: MockEntry | MockEntry[] | Mock | Mock[], options?: Partial<VitePluginOptions>): {
     name: string;
 };
 
