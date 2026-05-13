@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { matchRequest } from "../../src/browser";
 import advancedGetMock from "../api/js/body-fn.mjs";
 import advancedPostMock from "../api/js/body-fn_post.mjs";
+import delayMock from "../api/js/delay.mjs";
 import basicMockPost from "./basic-mock-post.mjs";
 import basicMock from "./basic-mock.mjs";
 
@@ -84,6 +85,30 @@ describe("browser", function () {
                 { contentType: "text/plain", fileName: "blob" },
                 { contentType: "text/plain", fileName: "blob" },
             ]);
+        });
+
+        it("should delay the response when calling delay mock", async () => {
+            expect.assertions(4);
+            vi.useFakeTimers();
+
+            const req = new Request("/api/delay", { method: "GET" });
+            const responsePromise = matchRequest([delayMock], req);
+
+            const spy = vi.fn();
+            responsePromise.then(spy);
+
+            await vi.advanceTimersByTimeAsync(998);
+            expect(spy).not.toHaveBeenCalled();
+
+            await vi.advanceTimersByTimeAsync(2);
+            expect(spy).toHaveBeenCalled();
+
+            const response = await responsePromise;
+            const body = await response.json();
+            expect(response.status).toBe(200);
+            expect(body).toEqual({ message: "default" });
+
+            vi.useRealTimers();
         });
     });
 });
