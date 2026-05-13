@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.16.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.15.1...v2.16.0) (2026-05-13)
+
+### Features
+
+* inline mocks ([4047568](https://github.com/Forsakringskassan/apimock-express/commit/40475689a1d6ed0e2dcd1841346164f10056d819))
+
 ## [2.15.1](https://github.com/Forsakringskassan/apimock-express/compare/v2.15.0...v2.15.1) (2026-04-10)
 
 ### Bug Fixes
