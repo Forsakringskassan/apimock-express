@@ -1,4 +1,7 @@
-import defaultConfig, { defineConfig } from "@forsakringskassan/eslint-config";
+import defaultConfig, {
+    defineConfig,
+    globals,
+} from "@forsakringskassan/eslint-config";
 import cliConfig from "@forsakringskassan/eslint-config-cli";
 import typescriptConfig from "@forsakringskassan/eslint-config-typescript";
 import typeinfoConfig from "@forsakringskassan/eslint-config-typescript-typeinfo";
@@ -22,7 +25,12 @@ export default [
     }),
     typescriptConfig(),
     typeinfoConfig(import.meta.dirname, {
-        ignores: ["*.d.ts", "**/vite.config.cts", "**/vite.config.mts"],
+        ignores: [
+            "*.d.ts",
+            "**/vite.config.cts",
+            "**/vite.config.mts",
+            "cypress.config.ts",
+        ],
     }),
 
     vitestConfig(),
@@ -32,6 +40,16 @@ export default [
         files: ["**/*.spec.{ts,mjs}"],
         rules: {
             "vitest/valid-expect": "off",
+        },
+    }),
+
+    defineConfig({
+        name: "local/browser",
+        files: ["test/local/**"],
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+            },
         },
     }),
 
