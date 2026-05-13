@@ -35,4 +35,16 @@ export default [
         meta: { url: "/inline-no-method/" },
         defaultResponse: { status: 200, body: {} },
     },
+    {
+        meta: {
+            url: "/inline-delay",
+            method: "GET",
+        },
+
+        defaultResponse: {
+            status: 200,
+            delay: 1000,
+            body: { message: "delayed response" },
+        },
+    },
 ];

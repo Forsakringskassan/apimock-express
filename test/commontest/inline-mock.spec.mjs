@@ -54,4 +54,19 @@ describe("inline mock", function () {
         );
         expect(res.status).to.equal(500);
     });
+
+    it("should delay the response by 1000ms when calling inline-delay", async () => {
+        expect.assertions(3);
+        const DELAY_TIME = 1000;
+        const starttime = Date.now();
+        const res = await fetch(`http://${hostname}/inline-delay`, {
+            method: "get",
+        });
+        const endtime = Date.now();
+        const executionTime = endtime - starttime;
+        const body = await res.json();
+        expect(res.status).to.equal(200);
+        expect(body).to.deep.equal({ message: "delayed response" });
+        expect(executionTime).to.be.at.least(DELAY_TIME);
+    });
 });
