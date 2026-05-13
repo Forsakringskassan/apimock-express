@@ -1,150 +1,99 @@
 // @vitest-environment happy-dom
 
 import { describe, expect, it } from "vitest";
-import { appendBasePath, matchResponseBrowser } from "../../src/browser";
+import { appendBasePath, matchRequest } from "../../src/browser";
 import { generateForBrowser } from "../../src/main";
 
 const mockData = await generateForBrowser("test/generateForBrowser", {
     rootPath: process.cwd(),
 });
-const config = {
-    mockdata: mockData,
-    requestUrl: "/deeply/private/fancyApi",
-    method: "GET",
-    bodyParameters: {},
-    headers: undefined,
-};
 
 describe("generateForBrowser", function () {
     describe("generateForBrowser", function () {
         it("should return default response for .js", async () => {
-            expect.assertions(1);
-            const customConfig = {
-                ...config,
-            };
-            const response = matchResponseBrowser(customConfig);
-            expect(response).to.deep.equal({
-                body: {
-                    foo: "bar",
-                },
-                delay: 0,
-                status: 200,
-            });
+            expect.assertions(2);
+            const request = new Request(
+                "http://localhost/deeply/private/fancyApi",
+            );
+            const response = await matchRequest(mockData, request);
+            expect(response.status).toBe(200);
+            expect(await response.json()).toEqual({ foo: "bar" });
         });
 
         it("should return post", async () => {
-            expect.assertions(1);
-            const customConfig = {
-                ...config,
-            };
-            customConfig.requestUrl = "/deeply/private/fancyApi";
-            customConfig.method = "POST";
-            const response = matchResponseBrowser(customConfig);
-            expect(response).to.deep.equal({
-                body: {
-                    message: "file uploaded with fancy api",
-                },
-                delay: 0,
-                status: 200,
+            expect.assertions(2);
+            const request = new Request(
+                "http://localhost/deeply/private/fancyApi",
+                { method: "POST" },
+            );
+            const response = await matchRequest(mockData, request);
+            expect(response.status).toBe(200);
+            expect(await response.json()).toEqual({
+                message: "file uploaded with fancy api",
             });
         });
 
         it("should return default response for .json", async () => {
-            expect.assertions(1);
-            const customConfig = {
-                ...config,
-            };
-            customConfig.requestUrl = "/deeply/private/json";
-            const response = matchResponseBrowser(customConfig);
-            expect(response).to.deep.equal({
-                body: {
-                    foo: "json",
-                },
-                delay: 0,
-                status: 200,
-            });
+            expect.assertions(2);
+            const request = new Request("http://localhost/deeply/private/json");
+            const response = await matchRequest(mockData, request);
+            expect(response.status).toBe(200);
+            expect(await response.json()).toEqual({ foo: "json" });
         });
 
         it("should return default response for .cjs", async () => {
-            expect.assertions(1);
-            const customConfig = {
-                ...config,
-            };
-            customConfig.requestUrl = "/deeply/private/commonjs";
-            const response = matchResponseBrowser(customConfig);
-            expect(response).to.deep.equal({
-                body: {
-                    foo: "cjs",
-                },
-                delay: 0,
-                status: 200,
-            });
+            expect.assertions(2);
+            const request = new Request(
+                "http://localhost/deeply/private/commonjs",
+            );
+            const response = await matchRequest(mockData, request);
+            expect(response.status).toBe(200);
+            expect(await response.json()).toEqual({ foo: "cjs" });
         });
 
         it("should return default response for .esm", async () => {
-            expect.assertions(1);
-            const customConfig = {
-                ...config,
-            };
-            customConfig.requestUrl = "/deeply/private/esm";
-            const response = matchResponseBrowser(customConfig);
-            expect(response).to.deep.equal({
-                body: {
-                    foo: "esm",
-                },
-                delay: 0,
-                status: 200,
-            });
+            expect.assertions(2);
+            const request = new Request("http://localhost/deeply/private/esm");
+            const response = await matchRequest(mockData, request);
+            expect(response.status).toBe(200);
+            expect(await response.json()).toEqual({ foo: "esm" });
         });
 
         it("should be able to define base api path", async () => {
-            expect.assertions(1);
-            const customConfig = {
-                ...config,
-            };
-            customConfig.mockdata = await generateForBrowser(
+            expect.assertions(2);
+            const prefixedMockData = await generateForBrowser(
                 "test/generateForBrowser",
                 {
                     rootPath: process.cwd(),
-                    baseApiPath: "api/prefix",
+                    baseApiPath: "/api/prefix",
                 },
             );
-            customConfig.requestUrl = "api/prefix/deeply/private/commonjs";
-            const response = matchResponseBrowser(customConfig);
-            expect(response).to.deep.equal({
-                body: {
-                    foo: "cjs",
-                },
-                delay: 0,
-                status: 200,
-            });
+            const request = new Request(
+                "http://localhost/api/prefix/deeply/private/commonjs",
+            );
+            const response = await matchRequest(prefixedMockData, request);
+            expect(response.status).toBe(200);
+            expect(await response.json()).toEqual({ foo: "cjs" });
         });
 
         it("should be able to append a basePath afterwards with using appendBasePath", async () => {
-            expect.assertions(1);
-            const customConfig = {
-                ...config,
-            };
-            customConfig.mockdata = await generateForBrowser(
+            expect.assertions(2);
+            const baseMockData = await generateForBrowser(
                 "test/generateForBrowser",
                 {
                     rootPath: process.cwd(),
                 },
             );
-            customConfig.requestUrl = "api/prefix/deeply/private/commonjs";
-
-            customConfig.mockdata = appendBasePath(
-                customConfig.mockdata,
-                "api/prefix",
+            const prefixedMockData = appendBasePath(
+                baseMockData,
+                "/api/prefix",
             );
-            const response = matchResponseBrowser(customConfig);
-            expect(response).to.deep.equal({
-                body: {
-                    foo: "cjs",
-                },
-                delay: 0,
-                status: 200,
-            });
+            const request = new Request(
+                "http://localhost/api/prefix/deeply/private/commonjs",
+            );
+            const response = await matchRequest(prefixedMockData, request);
+            expect(response.status).toBe(200);
+            expect(await response.json()).toEqual({ foo: "cjs" });
         });
     });
 });
