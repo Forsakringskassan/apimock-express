@@ -1,6 +1,6 @@
 import { getCookies } from "./browser/get-cookies";
 import { getRequestParamsFromUrl } from "./browser/get-request-params-from-url";
-import { selectResponse } from "./common";
+import { parseDelay, selectResponse } from "./common";
 import {
     type Mock,
     type MockResponse,
@@ -54,6 +54,11 @@ export async function matchRequest(
         headers,
     };
     const mockResponse = matchResponseBrowser(options) as StaticMockResponse;
+
+    const delay = parseDelay(mockResponse.delay);
+    if (delay > 0) {
+        await new Promise((resolve) => setTimeout(resolve, delay));
+    }
 
     const fetchOptions: ResponseInit = {
         status: mockResponse.status,
