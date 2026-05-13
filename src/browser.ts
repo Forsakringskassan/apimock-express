@@ -96,39 +96,9 @@ export function matchResponseBrowser(
         relativeUrl = options.requestUrl.split("?")[0];
     }
 
-    const mockResponse = matchResponse({
-        mockdata: options.mockdata,
-        requestUrl: relativeUrl,
-        method: options.method,
-        requestParameters: getRequestParamsFromUrl(options.requestUrl),
-        body: options.body,
-        bodyParameters: options.bodyParameters,
-        headers: options.headers,
-        cookies: getCookies(),
-    });
+    const requestParameters = getRequestParamsFromUrl(options.requestUrl);
+    const cookies = getCookies();
 
-    if (mockResponse) {
-        return mockResponse;
-    }
-
-    return {
-        label: "Mock 404 response",
-        status: 404,
-        delay: 0,
-        body: { response: "default 404 - @forsakringskassan/apimock-express" },
-    } satisfies MockResponse;
-}
-
-function matchResponse(options: {
-    mockdata: Mock[];
-    requestUrl: string;
-    method: string;
-    requestParameters: Record<string, string | string[] | undefined>;
-    body: string;
-    bodyParameters: Record<string, unknown>;
-    headers: Record<string, string | string[] | undefined>;
-    cookies: Record<string, string>;
-}): MockResponse | undefined {
     for (const mock of options.mockdata) {
         const meta = mock.meta;
         if (!meta) {
@@ -138,18 +108,26 @@ function matchResponse(options: {
         if (!meta?.url || !meta?.method) {
             continue;
         }
-        const requestUrl = options.requestUrl.split("?")[0];
 
-        if (meta.url === requestUrl && meta.method === options.method) {
-            return selectResponse(
+        if (meta.url === relativeUrl && meta.method === options.method) {
+            const mockResponse = selectResponse(
                 mock,
                 options.body,
-                options.requestParameters,
+                requestParameters,
                 options.bodyParameters,
                 options.headers,
-                options.cookies,
+                cookies,
             );
+            if (mockResponse) {
+                return mockResponse;
+            }
         }
     }
-    return undefined;
+
+    return {
+        label: "Mock 404 response",
+        status: 404,
+        delay: 0,
+        body: { response: "default 404 - @forsakringskassan/apimock-express" },
+    } satisfies MockResponse;
 }
