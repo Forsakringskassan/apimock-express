@@ -18,6 +18,29 @@ async function getMockResponse(url, method = "GET", headers = {}, body) {
 
 describe("browser", function () {
     describe("matchMockByRequest", function () {
+        it("should return default GET response", async () => {
+            expect.assertions(2);
+            const response = await getMockResponse("/private/foo/basic", "GET");
+            const body = await response.json();
+            expect(body).toEqual({
+                foo: "bar",
+            });
+            expect(response.status).toBe(200);
+        });
+
+        it("should return 404 if the url does not exactly match", async () => {
+            expect.assertions(2);
+            const response = await getMockResponse(
+                "/private/foo/basic404",
+                "GET",
+            );
+            const body = await response.json();
+            expect(body).toEqual({
+                response: "default 404 - @forsakringskassan/apimock-express",
+            });
+            expect(response.status).toBe(404);
+        });
+
         it("should return 404 response if no match", async () => {
             expect.assertions(2);
             const response = await getMockResponse("/not-found", "GET", {
