@@ -13,6 +13,14 @@ describe("inline mock", function () {
         expect(body).to.deep.equal({ message: "inline default response" });
     });
 
+    it("should return 404 if url not exact match", async () => {
+        expect.assertions(1);
+        const res = await fetch(`http://${hostname}/inline/resource404`, {
+            method: "get",
+        });
+        expect(res.status).to.equal(404);
+    });
+
     it("should return the matched response for a matching request parameter", async () => {
         expect.assertions(2);
         const res = await fetch(

@@ -1,6 +1,6 @@
 export default [
     {
-        meta: { url: "/inline/", method: "GET" },
+        meta: { url: "/inline/resource", method: "GET" },
         defaultResponse: {
             status: 200,
             body: { message: "inline default response" },
@@ -16,7 +16,7 @@ export default [
         ],
     },
     {
-        meta: { url: "/inline/", method: "POST" },
+        meta: { url: "/inline/resource", method: "POST" },
         defaultResponse: {
             status: 200,
             body: { message: "inline post default response" },
@@ -32,7 +32,7 @@ export default [
         ],
     },
     {
-        meta: { url: "/inline-no-method/" },
+        meta: { url: "/inline-no-method/resource" },
         defaultResponse: { status: 200, body: {} },
     },
     {

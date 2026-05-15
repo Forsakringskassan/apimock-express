@@ -48,11 +48,18 @@ const defaultConfig: MiddlewareConfiguration = {
  * @returns List of matching index or empty list if no match was found
  */
 function findMachingIndex(url: string): number[] {
+    function urlMatches(config: NormalizedEntry): boolean {
+        if (config.inlineMock !== undefined) {
+            return new URL(url, "https://x").pathname === config.mockurl;
+        }
+        return url.startsWith(config.mockurl);
+    }
+
     const found: number[] = [];
     /* eslint-disable-next-line @typescript-eslint/no-for-in-array -- technical debt */
     for (const i in mockOptions) {
         const config = mockOptions[i];
-        if (!url.startsWith(config.mockurl)) {
+        if (!urlMatches(config)) {
             continue;
         }
         if (found.length === 0) {
