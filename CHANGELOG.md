@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [2.16.1](https://github.com/Forsakringskassan/apimock-express/compare/v2.16.0...v2.16.1) (2026-05-18)
+
+### Bug Fixes
+
+* inline mocks should only match if url exactly matches ([6165b33](https://github.com/Forsakringskassan/apimock-express/commit/6165b3363aae5ed61e1759f283d61efea3525c50))
+* matchRequest should support delay config ([db52e67](https://github.com/Forsakringskassan/apimock-express/commit/db52e67b1b472c4ca72218f5583d472faeb687f6))
+
 ## [2.16.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.15.1...v2.16.0) (2026-05-13)
 
 ### Features
