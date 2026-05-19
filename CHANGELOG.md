@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [3.0.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.16.1...v3.0.0) (2026-05-19)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** Needs Node 22 or higher to run.
+
+### Features
+
+* **deps:** drop Node 20 support ([089cec3](https://github.com/Forsakringskassan/apimock-express/commit/089cec3bee6dfa6ea07eeecca50a7dd1dffdff42))
+
 ## [2.16.1](https://github.com/Forsakringskassan/apimock-express/compare/v2.16.0...v2.16.1) (2026-05-18)
 
 ### Bug Fixes
