@@ -91,7 +91,7 @@
     "@microsoft/api-extractor": "7.58.7",
     "@types/debug": "4.1.13",
     "@types/node": "22.19.19",
-    "cypress": "15.15.0",
+    "cypress": "15.16.0",
     "esbuild": "0.28.0",
     "express": "5.2.1",
     "happy-dom": "20.9.0",
