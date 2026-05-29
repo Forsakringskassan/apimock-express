@@ -57,9 +57,9 @@ export default [
         name: "local/technical-debt",
         files: ["**/*.{cjs,mjs}"],
         rules: {
-            "import/extensions": "off",
-            "import/no-unresolved": "off",
-            "import/no-named-as-default-member": "off",
+            "import-x/extensions": "off",
+            "import-x/no-unresolved": "off",
+            "import-x/no-named-as-default-member": "off",
         },
     }),
 ];
