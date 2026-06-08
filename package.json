@@ -98,7 +98,7 @@
     "is-ci": "4.1.0",
     "npm-pkg-lint": "5.1.4",
     "npm-run-all2": "9.0.1",
-    "start-server-and-test": "3.0.7",
+    "start-server-and-test": "3.0.8",
     "typescript": "6.0.3",
     "vite": "8.0.16",
     "vitest": "4.1.8"
