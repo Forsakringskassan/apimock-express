@@ -94,7 +94,7 @@
     "cypress": "15.16.0",
     "esbuild": "0.28.0",
     "express": "5.2.1",
-    "happy-dom": "20.10.1",
+    "happy-dom": "20.10.2",
     "is-ci": "4.1.0",
     "npm-pkg-lint": "5.1.5",
     "npm-run-all2": "9.0.1",
