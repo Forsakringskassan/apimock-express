@@ -88,7 +88,7 @@
     "@forsakringskassan/eslint-config-vitest": "15.0.9",
     "@forsakringskassan/prettier-config": "3.7.0",
     "@html-validate/release-scripts": "7.2.4",
-    "@microsoft/api-extractor": "7.58.7",
+    "@microsoft/api-extractor": "7.58.8",
     "@types/debug": "4.1.13",
     "@types/node": "22.19.20",
     "cypress": "15.16.0",
