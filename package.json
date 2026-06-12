@@ -92,7 +92,7 @@
     "@types/debug": "4.1.13",
     "@types/node": "22.19.20",
     "cypress": "15.17.0",
-    "esbuild": "0.28.0",
+    "esbuild": "0.28.1",
     "express": "5.2.1",
     "happy-dom": "20.10.2",
     "is-ci": "4.1.0",
