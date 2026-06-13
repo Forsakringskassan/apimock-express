@@ -96,7 +96,7 @@
     "express": "5.2.1",
     "happy-dom": "20.10.2",
     "is-ci": "4.1.0",
-    "npm-pkg-lint": "5.1.5",
+    "npm-pkg-lint": "5.1.6",
     "npm-run-all2": "9.0.1",
     "start-server-and-test": "3.0.9",
     "typescript": "6.0.3",
