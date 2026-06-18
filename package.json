@@ -57,6 +57,7 @@
     "integrationTest": "start-server-and-test 'intergrationServer' 8080 'cypress run'",
     "prepack": "release-prepack --bundle",
     "postpack": "release-postpack",
+    "prepare": "commitlint-config",
     "prepublishOnly": "release-prepublish --bundle",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
@@ -80,7 +81,7 @@
     "glob": "^13.0.0"
   },
   "devDependencies": {
-    "@forsakringskassan/commitlint-config": "3.6.9",
+    "@forsakringskassan/commitlint-config": "4.0.0",
     "@forsakringskassan/eslint-config": "15.0.18",
     "@forsakringskassan/eslint-config-cli": "15.0.0",
     "@forsakringskassan/eslint-config-typescript": "15.0.16",
@@ -113,6 +114,12 @@
   },
   "engines": {
     "node": "^22 || >= 24"
+  },
+  "allowScripts": {
+    "cypress": true,
+    "esbuild": true,
+    "fsevents": false,
+    "unrs-resolver": true
   },
   "externalDependencies": [
     "glob"
