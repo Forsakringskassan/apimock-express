@@ -71,8 +71,7 @@ export type DynamicMockResponse<T = unknown> = (
  * @typeParam T - The type of the response body.
  */
 export type MockResponse<T = unknown> =
-    | StaticMockResponse<T>
-    | DynamicMockResponse<T>;
+    StaticMockResponse<T> | DynamicMockResponse<T>;
 
 /**
  * Describes a request for the mock server to listen for.
