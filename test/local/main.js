@@ -28,7 +28,7 @@ const mocks = [
 
 const fetchResponse = await matchRequest(
     mocks,
-    new Request("/private/foo/basic", { method: "GET" }),
+    new Request("/private/foo/basic"),
 );
 
 const fetchResponsePost = await matchRequest(

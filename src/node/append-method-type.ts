@@ -7,7 +7,7 @@ export function appendMethodType(
 ): string {
     const { method } = req;
     if (method && method !== "GET") {
-        filepath = `${filepath}_${method.toLowerCase()}`;
+        return `${filepath}_${method.toLowerCase()}`;
     }
     return filepath;
 }
