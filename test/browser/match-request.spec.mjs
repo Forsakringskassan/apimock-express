@@ -114,10 +114,12 @@ describe("browser", function () {
             expect.assertions(4);
             vi.useFakeTimers();
 
-            const req = new Request("/api/delay", { method: "GET" });
+            const req = new Request("/api/delay");
             const responsePromise = matchRequest([delayMock], req);
 
             const spy = vi.fn();
+
+            /* eslint-disable-next-line unicorn/prefer-await -- intentional for test */
             responsePromise.then(spy);
 
             await vi.advanceTimersByTimeAsync(998);

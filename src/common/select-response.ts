@@ -30,19 +30,19 @@ function normalizeResponse(
     response: MockResponse,
 ): StaticMockResponse {
     if (typeof response === "function") {
+        /* eslint-disable-next-line unicorn/no-useless-recursion -- technical debt */
         return normalizeResponse(request, response(request));
-    } else {
-        return {
-            status: defaultStatus,
-            delay: defaultDelay,
-            ...response,
-            body:
-                typeof response.body === "function"
-                    ? /* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- intended */
-                      response.body(request)
-                    : response.body,
-        };
     }
+    return {
+        status: defaultStatus,
+        delay: defaultDelay,
+        ...response,
+        body:
+            typeof response.body === "function"
+                ? /* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- intended */
+                  response.body(request)
+                : response.body,
+    };
 }
 
 /**

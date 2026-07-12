@@ -51,16 +51,15 @@ function stripQueryParams(filepath: string): string {
     const index = filepath.indexOf("?");
     if (index !== -1) {
         return filepath.slice(0, index);
-    } else {
-        return filepath;
     }
+    return filepath;
 }
 
 /**
  * Convert posix `/` to native path delimiter.
  */
 function normalizeSeparator(filepath: string): string {
-    return filepath.replaceAll("/", path.sep);
+    return filepath.replaceAll("/", () => path.sep);
 }
 
 /**
@@ -109,21 +108,23 @@ async function getFilepathInternal(
     const wildcard = await glob(wildcardPattern(filepath, req), options);
     const files = await glob(globPattern(filepath, req), options);
     const dirFiles = await glob(dirPattern(filepath, req), options);
-    const resolvedPath = path.resolve(
-        process.cwd(),
-        globPattern(filepath, req),
-    );
 
     if (dirFiles.length > 0) {
         return dirFiles[0];
     }
+
+    const resolvedPath = path.resolve(
+        process.cwd(),
+        globPattern(filepath, req),
+    );
 
     if (files.length === 0) {
         if (wildcard.length === 1) {
             return wildcard[0];
         }
         throw new Error(`Cannot find file matching glob "${resolvedPath}"`);
-    } else if (files.length > 1) {
+    }
+    if (files.length > 1) {
         console.warn(
             `Found multiple files matching glob "%s", using "%s", found:`,
             resolvedPath,

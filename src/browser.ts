@@ -40,7 +40,6 @@ export async function matchRequest(
     const headers: Record<string, string | string[] | undefined> = {};
     const bodyText = await request.text();
 
-    /* eslint-disable-next-line unicorn/no-array-for-each -- false positive */
     request.headers.forEach((value, key) => {
         headers[key] = value;
     });
@@ -98,7 +97,7 @@ export function matchResponseBrowser(
     if (fullUrl) {
         relativeUrl = fullUrl.pathname;
     } else {
-        relativeUrl = options.requestUrl.split("?")[0];
+        relativeUrl = options.requestUrl.split("?", 1)[0];
     }
 
     const requestParameters = getRequestParamsFromUrl(options.requestUrl);

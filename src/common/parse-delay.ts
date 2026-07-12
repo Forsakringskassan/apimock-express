@@ -3,15 +3,13 @@
  *
  * @internal
  */
-export function parseDelay(delay: number | undefined): number {
+export function parseDelay(delay: number | string | undefined): number {
     if (delay === undefined) {
         return 0;
     }
-    /* @ts-expect-error -- code doesn't make sense, technical debt. */
-    if (!Number.isNaN(Number.parseFloat(delay)) && Number.isFinite(delay)) {
-        //delay is a number
-        return delay;
-    } else {
-        return 0;
+    const parsed = Number(delay);
+    if (!Number.isNaN(parsed) && Number.isFinite(parsed)) {
+        return parsed;
     }
+    return 0;
 }

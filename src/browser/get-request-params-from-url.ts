@@ -3,6 +3,6 @@
  * @internal
  */
 export function getRequestParamsFromUrl(url: string): Record<string, string> {
-    const params = url.split("?")[1];
+    const params = url.split("?", 2)[1];
     return Object.fromEntries(new URLSearchParams(params));
 }

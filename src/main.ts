@@ -67,7 +67,7 @@ function findMachingIndex(url: string): number[] {
         } else {
             debug(`Found another matching mock at ${i}:`, config);
         }
-        found.push(Number.parseInt(i, 10));
+        found.push(Number(i));
     }
     return found;
 }
@@ -157,9 +157,8 @@ const apimock = {
         mockOptions = toArray(mocks).map((option) => {
             if (isMockEntry(option)) {
                 return normalizeMockEntry(option, table);
-            } else {
-                return normalizeInlineMock(option, table);
             }
+            return normalizeInlineMock(option, table);
         });
 
         if (config.verbose) {
@@ -264,18 +263,22 @@ const apimock = {
         const plugin: Plugin = {
             name: "apimock-plugin",
             configureServer(server) {
-                if (enabled === true || enabled === "serve") {
-                    apimock.config(mocks, options);
-                    /* eslint-disable-next-line @typescript-eslint/unbound-method -- technical debt */
-                    server.middlewares.use("/", apimock.mockRequest);
+                if (!(enabled === true || enabled === "serve")) {
+                    return;
                 }
+
+                apimock.config(mocks, options);
+                /* eslint-disable-next-line @typescript-eslint/unbound-method -- technical debt */
+                server.middlewares.use("/", apimock.mockRequest);
             },
             configurePreviewServer(server) {
-                if (enabled === true || enabled === "preview") {
-                    apimock.config(mocks, options);
-                    /* eslint-disable-next-line @typescript-eslint/unbound-method -- technical debt */
-                    server.middlewares.use("/", apimock.mockRequest);
+                if (!(enabled === true || enabled === "preview")) {
+                    return;
                 }
+
+                apimock.config(mocks, options);
+                /* eslint-disable-next-line @typescript-eslint/unbound-method -- technical debt */
+                server.middlewares.use("/", apimock.mockRequest);
             },
         };
         return plugin;
