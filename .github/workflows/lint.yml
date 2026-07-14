@@ -20,7 +20,7 @@ jobs:
               uses: Forsakringskassan/prettier-config@2b3666691fe48f99901de8d821b8196290a8ec42 # v3.7.7
             - name: ESLint
               if: success() || failure()
-              uses: Forsakringskassan/eslint-config@27c7163718e7352098a46ce25b9d03fd85cc7bb6 # v15.3.5
+              uses: Forsakringskassan/eslint-config@b941aaf8d82dd3411e81262d8f9ccb7ad837624e # v15.3.6
     npm-pkg-lint:
         runs-on: ubuntu-latest
         steps:
