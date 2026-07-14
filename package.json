@@ -86,7 +86,7 @@
     "@forsakringskassan/eslint-config-cli": "15.3.0",
     "@forsakringskassan/eslint-config-typescript": "15.3.4",
     "@forsakringskassan/eslint-config-typescript-typeinfo": "15.3.4",
-    "@forsakringskassan/eslint-config-vitest": "15.3.5",
+    "@forsakringskassan/eslint-config-vitest": "15.3.7",
     "@forsakringskassan/prettier-config": "3.7.7",
     "@html-validate/release-scripts": "7.3.6",
     "@microsoft/api-extractor": "7.58.9",
