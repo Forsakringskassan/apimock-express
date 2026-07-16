@@ -92,6 +92,7 @@
     "@microsoft/api-extractor": "7.58.9",
     "@types/debug": "4.1.13",
     "@types/node": "22.20.1",
+    "@typescript/native": "npm:typescript@7.0.2",
     "cypress": "15.18.1",
     "esbuild": "0.28.1",
     "express": "5.2.1",
@@ -100,7 +101,7 @@
     "npm-pkg-lint": "5.1.11",
     "npm-run-all2": "9.0.2",
     "start-server-and-test": "3.0.11",
-    "typescript": "6.0.3",
+    "typescript": "npm:@typescript/typescript6@6.0.2",
     "vite": "8.1.4",
     "vitest": "4.1.10"
   },
