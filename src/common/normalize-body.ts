@@ -20,7 +20,7 @@ export function normalizeBody(
         ? (contentTypeHeader[0] ?? "")
         : contentTypeHeader;
 
-    const [type, params] = contentTypeValue.trim().toLowerCase().split(";");
+    const [type, params] = contentTypeValue.trim().toLowerCase().split(";", 2);
 
     switch (type) {
         case "application/json":
