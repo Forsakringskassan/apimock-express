@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import { vitePlugin } from "../../src/main";
+import { vitePlugin } from "../../src/main.ts";
 
 export default defineConfig({
     clearScreen: false,
