@@ -94,7 +94,7 @@
     "@types/node": "22.20.1",
     "@typescript/native": "npm:typescript@7.0.2",
     "cypress": "15.20.0",
-    "esbuild": "0.28.1",
+    "esbuild": "0.28.2",
     "express": "5.2.1",
     "happy-dom": "20.11.2",
     "is-ci": "4.1.0",
