@@ -52,7 +52,9 @@ export async function matchRequest(
         bodyParameters: {},
         headers,
     };
-    const mockResponse = matchResponseBrowser(options) as StaticMockResponse;
+    const mockResponse = (await matchResponseBrowser(
+        options,
+    )) as StaticMockResponse;
 
     const delay = parseDelay(mockResponse.delay);
     if (delay > 0) {
@@ -89,9 +91,9 @@ interface MatchResponseBrowserInterface {
  * Function will always return in a mock-response, the fallback will be a mocked 404 request if no given mock is matched
  * @internal
  */
-function matchResponseBrowser(
+async function matchResponseBrowser(
     options: MatchResponseBrowserInterface,
-): MockResponse {
+): Promise<MockResponse> {
     let relativeUrl: string;
     const fullUrl = URL.parse(options.requestUrl);
     if (fullUrl) {
@@ -114,7 +116,7 @@ function matchResponseBrowser(
         }
 
         if (meta.url === relativeUrl && meta.method === options.method) {
-            const mockResponse = selectResponse(
+            const mockResponse = await selectResponse(
                 mock,
                 options.body,
                 requestParameters,

@@ -25,13 +25,13 @@ function enforceLowerCaseHeaders(
 
 /** Append response with default data if missing */
 
-function normalizeResponse(
+async function normalizeResponse(
     request: MockRequest,
     response: MockResponse,
-): StaticMockResponse {
+): Promise<StaticMockResponse> {
     if (typeof response === "function") {
         /* eslint-disable-next-line unicorn/no-useless-recursion -- technical debt */
-        return normalizeResponse(request, response(request));
+        return normalizeResponse(request, await response(request));
     }
     return {
         status: defaultStatus,
@@ -40,7 +40,7 @@ function normalizeResponse(
         body:
             typeof response.body === "function"
                 ? /* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- intended */
-                  response.body(request)
+                  await response.body(request)
                 : response.body,
     };
 }
@@ -54,14 +54,14 @@ function normalizeResponse(
  * @public
  */
 // eslint-disable-next-line @typescript-eslint/max-params -- technical debt
-export function selectResponse(
+export async function selectResponse(
     mockdata: Mock,
     body: string,
     requestparameters: Record<string, string | string[] | undefined>,
     bodyParameters: Record<string, unknown>,
     headers: Record<string, string | string[] | undefined>,
     cookies: Record<string, string>,
-): StaticMockResponse | undefined {
+): Promise<StaticMockResponse | undefined> {
     const lowercaseHeaders = enforceLowerCaseHeaders(headers);
     const mockrequest: MockRequest = {
         body: normalizeBody(lowercaseHeaders, body),

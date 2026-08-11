@@ -2,6 +2,7 @@
 /* global document */
 import { describe, expect, it, vi } from "vitest";
 import { matchRequest } from "../../src/browser";
+import asyncResponseMock from "../api/js/async-response-fn.mjs";
 import advancedGetMock from "../api/js/body-fn.mjs";
 import advancedPostMock from "../api/js/body-fn_post.mjs";
 import delayMock from "../api/js/delay.mjs";
@@ -134,6 +135,15 @@ describe("browser", function () {
             expect(body).toEqual({ message: "default" });
 
             vi.useRealTimers();
+        });
+
+        it("should support an async response function", async () => {
+            expect.assertions(2);
+            const req = new Request("/advanced/async-mock");
+            const response = await matchRequest([asyncResponseMock], req);
+            const body = await response.json();
+            expect(response.status).toBe(200);
+            expect(body).toEqual({ async: "response" });
         });
     });
 });

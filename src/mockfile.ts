@@ -51,7 +51,7 @@ export interface StaticMockResponse<T = unknown> {
     /**
      * The response body.
      */
-    body?: T | ((req: MockRequest) => T);
+    body?: T | ((req: MockRequest) => T | Promise<T>);
 }
 
 /**
@@ -62,7 +62,7 @@ export interface StaticMockResponse<T = unknown> {
  */
 export type DynamicMockResponse<T = unknown> = (
     req: MockRequest,
-) => StaticMockResponse<T>;
+) => StaticMockResponse<T> | Promise<StaticMockResponse<T>>;
 
 /**
  * Describes a mock response.
