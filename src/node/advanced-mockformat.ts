@@ -22,7 +22,7 @@ export function advancedMockformat(
     req.on("data", function (chunk) {
         body += String(chunk);
     });
-    req.on("end", function () {
+    req.on("end", async function () {
         let parseError = false;
         try {
             bodyParameters = parseBody(req, body);
@@ -45,7 +45,7 @@ export function advancedMockformat(
                 body: { error: "Malformed input body" },
             };
         } else {
-            selectedResponse = selectResponse(
+            selectedResponse = await selectResponse(
                 mockdata,
                 body,
                 requestParameters,

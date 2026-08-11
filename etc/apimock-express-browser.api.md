@@ -8,7 +8,7 @@
 export function appendBasePath(mocks: Mock[], basePath: string): Mock[];
 
 // @public
-export type DynamicMockResponse<T = unknown> = (req: MockRequest) => StaticMockResponse<T>;
+export type DynamicMockResponse<T = unknown> = (req: MockRequest) => StaticMockResponse<T> | Promise<StaticMockResponse<T>>;
 
 // @public (undocumented)
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
@@ -50,11 +50,11 @@ export interface MockRequest<T = unknown> {
 export type MockResponse<T = unknown> = StaticMockResponse<T> | DynamicMockResponse<T>;
 
 // @public
-export function selectResponse(mockdata: Mock, body: string, requestparameters: Record<string, string | string[] | undefined>, bodyParameters: Record<string, unknown>, headers: Record<string, string | string[] | undefined>, cookies: Record<string, string>): StaticMockResponse | undefined;
+export function selectResponse(mockdata: Mock, body: string, requestparameters: Record<string, string | string[] | undefined>, bodyParameters: Record<string, unknown>, headers: Record<string, string | string[] | undefined>, cookies: Record<string, string>): Promise<StaticMockResponse | undefined>;
 
 // @public
 export interface StaticMockResponse<T = unknown> {
-    body?: T | ((req: MockRequest) => T);
+    body?: T | ((req: MockRequest) => T | Promise<T>);
     delay?: number;
     description?: string;
     headers?: Record<string, string>;

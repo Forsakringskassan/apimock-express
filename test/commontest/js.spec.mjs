@@ -238,6 +238,22 @@ describe("js mocks", function () {
         expect(await res.text()).eq("my response body");
     });
 
+    it("should support response as an async function", async () => {
+        expect.assertions(2);
+        const res = await fetch(
+            `http://${hostname}/api/js/response-function-async`,
+            {
+                method: "post",
+                headers: {
+                    "Content-Type": "text/plain; charset=UTF-8",
+                },
+                body: "my request body",
+            },
+        );
+        expect(res.status).to.equal(201);
+        expect(await res.text()).eq("my response body");
+    });
+
     describe("request parameters", () => {
         it("should pass empty object to response function when there are no parameters in url", async () => {
             expect.assertions(2);

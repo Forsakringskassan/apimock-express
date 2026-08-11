@@ -5,7 +5,7 @@
 ```ts
 
 // @public
-export type DynamicMockResponse<T = unknown> = (req: MockRequest) => StaticMockResponse<T>;
+export type DynamicMockResponse<T = unknown> = (req: MockRequest) => StaticMockResponse<T> | Promise<StaticMockResponse<T>>;
 
 // @public
 export interface Mock<T = unknown, U = unknown> {
@@ -59,7 +59,7 @@ export type MockResponse<T = unknown> = StaticMockResponse<T> | DynamicMockRespo
 
 // @public
 export interface StaticMockResponse<T = unknown> {
-    body?: T | ((req: MockRequest) => T);
+    body?: T | ((req: MockRequest) => T | Promise<T>);
     delay?: number;
     description?: string;
     headers?: Record<string, string>;
