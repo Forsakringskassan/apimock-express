@@ -70,9 +70,9 @@ export async function matchRequest(
     return new Response(body as BodyInit, fetchOptions);
 }
 /**
- * @public
+ * @internal
  */
-export interface MatchResponseBrowserInterface {
+interface MatchResponseBrowserInterface {
     mockdata: Mock[];
     requestUrl: string;
     method: HttpMethod;
@@ -87,9 +87,9 @@ export interface MatchResponseBrowserInterface {
  * Major differences between this function and matchResponse is:
  * This function will automagically retrieve cookies and request parameters
  * Function will always return in a mock-response, the fallback will be a mocked 404 request if no given mock is matched
- * @public
+ * @internal
  */
-export function matchResponseBrowser(
+function matchResponseBrowser(
     options: MatchResponseBrowserInterface,
 ): MockResponse {
     let relativeUrl: string;
