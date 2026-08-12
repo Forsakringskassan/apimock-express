@@ -17,25 +17,6 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 export function matchRequest(mockdata: Mock[], request: Request): Promise<Response>;
 
 // @public
-export function matchResponseBrowser(options: MatchResponseBrowserInterface): MockResponse;
-
-// @public (undocumented)
-export interface MatchResponseBrowserInterface {
-    // (undocumented)
-    body: string;
-    // (undocumented)
-    bodyParameters: Record<string, unknown>;
-    // (undocumented)
-    headers: Record<string, string | string[] | undefined>;
-    // (undocumented)
-    method: HttpMethod;
-    // (undocumented)
-    mockdata: Mock[];
-    // (undocumented)
-    requestUrl: string;
-}
-
-// @public
 export interface Mock<T = unknown, U = unknown> {
     defaultResponse: MockResponse<T>;
     // (undocumented)
