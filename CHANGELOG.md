@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [3.1.0](https://github.com/Forsakringskassan/apimock-express/compare/v3.0.0...v3.1.0) (2026-08-12)
+
+### Features
+
+* allow async functions in mock responses ([c6c7d38](https://github.com/Forsakringskassan/apimock-express/commit/c6c7d38e84471830372ee5692f1e8c86f352c768))
+
+### Bug Fixes
+
+* remove matchResponseBrowser from public API ([1e22698](https://github.com/Forsakringskassan/apimock-express/commit/1e2269865b4aa9dd65f50efdc4bfdbb7cef8efcd))
+
 ## [3.0.0](https://github.com/Forsakringskassan/apimock-express/compare/v2.16.1...v3.0.0) (2026-05-19)
 
 ### ⚠ BREAKING CHANGES
