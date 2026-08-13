@@ -2,7 +2,6 @@ import fs from "node:fs";
 import { type IncomingMessage, type ServerResponse } from "node:http";
 import { type Plugin } from "vite";
 import createDebug from "debug";
-import { version } from "../package.json";
 import { parseDelay } from "./common";
 import { type MiddlewareConfiguration } from "./middleware-configuration";
 import { type MockEntry } from "./mock-entry";
@@ -162,7 +161,7 @@ const apimock = {
         });
 
         if (config.verbose) {
-            console.group(`apimock-express v${version} configuration`);
+            console.group(`apimock-express configuration`);
             console.table(table);
             console.log("Use DEBUG=apimock to see debugging messages");
             console.groupEnd();
