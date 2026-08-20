@@ -8,6 +8,7 @@ const app = express();
 let server = null;
 
 const mockConfig = [
+    { url: "/src-mocks/", dir: "src/mocks" },
     { url: "/api/", dir: "test/api" },
     { url: "/api2/", dir: "test/api" },
     { url: "/apiX/", dir: "test/apiX", delay: 1000 },

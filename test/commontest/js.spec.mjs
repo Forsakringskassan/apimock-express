@@ -254,6 +254,15 @@ describe("js mocks", function () {
         expect(await res.text()).eq("my response body");
     });
 
+    it("should support .ts", async () => {
+        expect.assertions(2);
+        const res = await fetch(`http://${hostname}/src-mocks/typescript`);
+        expect(res.status).to.equal(201);
+        expect(await res.json()).to.deep.equal({
+            content: "Response from typescript file",
+        });
+    });
+
     describe("request parameters", () => {
         it("should pass empty object to response function when there are no parameters in url", async () => {
             expect.assertions(2);

@@ -3,6 +3,8 @@ import { glob } from "glob";
 import { type NormalizedEntry } from "../normalized-entry";
 import { appendMethodType } from "./append-method-type";
 
+const fileExtensions = "{js,cjs,mjs,ts,mts,json}";
+
 export interface GetFilepathResponse {
     index: number;
     filepath: string;
@@ -68,7 +70,7 @@ function normalizeSeparator(filepath: string): string {
 function wildcardPattern(filepath: string, req: { method?: string }): string {
     return path.join(
         path.dirname(filepath),
-        `${appendMethodType(req, "__default")}.*{js,json}`,
+        `${appendMethodType(req, "__default")}.${fileExtensions}`,
     );
 }
 
@@ -76,7 +78,7 @@ function wildcardPattern(filepath: string, req: { method?: string }): string {
  * Creates a glob pattern to match directory with a `dir/endpoint.json` mock.
  */
 function globPattern(filepath: string, req: { method?: string }): string {
-    return `${appendMethodType(req, filepath)}.*{js,json}`;
+    return `${appendMethodType(req, filepath)}.${fileExtensions}`;
 }
 
 /**
@@ -85,7 +87,7 @@ function globPattern(filepath: string, req: { method?: string }): string {
 function dirPattern(filepath: string, req: { method?: string }): string {
     return path.join(
         filepath,
-        `__${req.method?.toLowerCase() ?? "get"}.*{js,json}`,
+        `__${req.method?.toLowerCase() ?? "get"}.${fileExtensions}`,
     );
 }
 
