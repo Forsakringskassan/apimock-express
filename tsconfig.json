@@ -12,6 +12,6 @@
         "declarationDir": "temp/types",
         "emitDeclarationOnly": true
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts", "src/**/*.mts"],
     "exclude": ["node_modules"]
 }

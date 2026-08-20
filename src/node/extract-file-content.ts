@@ -31,7 +31,9 @@ export async function extractFileContent(filepath: string): Promise<Mock> {
         }
         case ".js":
         case ".cjs":
-        case ".mjs": {
+        case ".mjs":
+        case ".ts":
+        case ".mts": {
             let { default: mock } = (await import(
                 url.pathToFileURL(filepath).toString()
             )) as {

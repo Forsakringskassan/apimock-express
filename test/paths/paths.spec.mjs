@@ -37,7 +37,7 @@ describe("relative path mocks", function () {
         const body = normalizePath(await res.text());
         expect(res.status).to.equal(500);
         expect(body).toMatchInlineSnapshot(
-            `"Error: Error: Cannot find file matching glob "<rootDir>/test/paths/mocks/missing.*{js,json}""`,
+            `"Error: Error: Cannot find file matching glob "<rootDir>/test/paths/mocks/missing.{js,cjs,mjs,ts,mts,json}""`,
         );
     });
 });
@@ -69,7 +69,7 @@ describe("absolute path mocks", function () {
         const body = normalizePath(await res.text());
         expect(res.status).to.equal(500);
         expect(body).toMatchInlineSnapshot(
-            `"Error: Error: Cannot find file matching glob "<rootDir>/test/paths/mocks/missing.*{js,json}""`,
+            `"Error: Error: Cannot find file matching glob "<rootDir>/test/paths/mocks/missing.{js,cjs,mjs,ts,mts,json}""`,
         );
     });
 });
