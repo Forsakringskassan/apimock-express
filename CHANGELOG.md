@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [3.2.0](https://github.com/Forsakringskassan/apimock-express/compare/v3.1.0...v3.2.0) (2026-08-21)
+
+### Features
+
+* support .ts and .mts ([2f9534f](https://github.com/Forsakringskassan/apimock-express/commit/2f9534fcc0bc99b33c8a754082c9de87b1932046))
+
 ## [3.1.0](https://github.com/Forsakringskassan/apimock-express/compare/v3.0.0...v3.1.0) (2026-08-12)
 
 ### Features
