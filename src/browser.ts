@@ -1,6 +1,6 @@
 import { getCookies } from "./browser/get-cookies";
 import { getRequestParamsFromUrl } from "./browser/get-request-params-from-url";
-import { parseDelay, selectResponse } from "./common";
+import { getPathParameters, parseDelay, selectResponse } from "./common";
 import {
     type Mock,
     type MockResponse,
@@ -115,11 +115,12 @@ async function matchResponseBrowser(
             continue;
         }
 
-        if (meta.url === relativeUrl && meta.method === options.method) {
+        const pathParameters = getPathParameters(meta.url, relativeUrl);
+        if (pathParameters !== undefined && meta.method === options.method) {
             const mockResponse = await selectResponse(
                 mock,
                 options.body,
-                requestParameters,
+                { ...pathParameters, ...requestParameters },
                 options.bodyParameters,
                 options.headers,
                 cookies,

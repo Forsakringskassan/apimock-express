@@ -21,6 +21,22 @@ describe("inline mock", function () {
         expect(res.status).to.equal(404);
     });
 
+    it("should return different responses for different path parameters", async () => {
+        expect.assertions(4);
+        const firstRes = await fetch(`http://${hostname}/inline/path/123`, {
+            method: "get",
+        });
+        const firstBody = await firstRes.json();
+        const secondRes = await fetch(`http://${hostname}/inline/path/456`, {
+            method: "get",
+        });
+        const secondBody = await secondRes.json();
+        expect(firstRes.status).to.equal(200);
+        expect(firstBody).to.deep.equal({ message: "path response 123" });
+        expect(secondRes.status).to.equal(200);
+        expect(secondBody).to.deep.equal({ message: "path response 456" });
+    });
+
     it("should return the matched response for a matching request parameter", async () => {
         expect.assertions(2);
         const res = await fetch(
