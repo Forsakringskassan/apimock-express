@@ -36,6 +36,26 @@ export default [
         defaultResponse: { status: 200, body: {} },
     },
     {
+        meta: { url: "/inline/path/:id", method: "GET" },
+        defaultResponse: { status: 404, body: { message: "unknown path" } },
+        responses: [
+            {
+                request: { parameters: { id: "123" } },
+                response: {
+                    status: 200,
+                    body: { message: "path response 123" },
+                },
+            },
+            {
+                request: { parameters: { id: "456" } },
+                response: {
+                    status: 200,
+                    body: { message: "path response 456" },
+                },
+            },
+        ],
+    },
+    {
         meta: {
             url: "/inline-delay",
             method: "GET",

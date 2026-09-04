@@ -666,6 +666,24 @@ apimock.config([mock]);
 
 The URL prefix that this mock responds to. Unlike file-based mocks, the URL must be explicitly set here.
 
+Inline mock URLs support path parameters using colon-prefixed segments. For
+example, `/api/users/:userId` matches `/api/users/123`. Each parameter captures
+one non-empty path segment and is available as a request parameter when
+selecting a response. All other URL segments must match exactly.
+
+```ts
+const mock = defineMock({
+    meta: {
+        url: "/api/users/:userId",
+        method: "GET",
+    },
+    defaultResponse: {
+        status: 200,
+        body: { message: "user response" },
+    },
+});
+```
+
 #### `meta.method`
 
 **Type:** `String` (`"GET"` | `"POST"` | `"PUT"` | `"DELETE"`)
