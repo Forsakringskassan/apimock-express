@@ -1,6 +1,12 @@
 import { type IncomingMessage, type ServerResponse } from "node:http";
 import url from "node:url";
-import { parseBody, parseCookies, parseDelay, selectResponse } from "../common";
+import {
+    getPathParameters,
+    parseBody,
+    parseCookies,
+    parseDelay,
+    selectResponse,
+} from "../common";
 import { type Mock, type StaticMockResponse } from "../mockfile";
 import { respondData } from "./respond-data";
 
@@ -15,7 +21,15 @@ export function advancedMockformat(
     mockdata: Mock,
     baseDelay: number,
 ): void {
-    const requestParameters = url.parse(req.originalUrl ?? "", true).query;
+    const requestUrl = req.originalUrl ?? "";
+    const parsedUrl = url.parse(requestUrl, true);
+    const requestParameters = {
+        ...getPathParameters(
+            mockdata.meta?.url ?? "",
+            parsedUrl.pathname ?? "",
+        ),
+        ...parsedUrl.query,
+    };
     const cookies = parseCookies(req);
     let bodyParameters: Record<string, unknown> = {};
     let body = "";

@@ -4,3 +4,4 @@ export { parseCookies } from "./parse-cookies";
 export { parseDelay } from "./parse-delay";
 export { selectResponse } from "./select-response";
 export { appendBasePath } from "./append-base-path";
+export { getPathParameters } from "./get-path-parameters";
