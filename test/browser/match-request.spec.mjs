@@ -8,6 +8,7 @@ import advancedPostMock from "../api/js/body-fn_post.mjs";
 import delayMock from "../api/js/delay.mjs";
 import basicMockPost from "./basic-mock-post.mjs";
 import basicMock from "./basic-mock.mjs";
+import pathParamMock from "./path-param-mock.mjs";
 
 async function getMockResponse(url, method = "GET", headers = {}, body) {
     const req = new Request(url, { method, headers, body });
@@ -145,5 +146,29 @@ describe("browser", function () {
             expect(response.status).toBe(200);
             expect(body).toEqual({ async: "response" });
         });
+    });
+
+    it("should match based on path parameters", async () => {
+        expect.assertions(6);
+        // Low ID
+        const req1 = new Request("/user/123");
+        const res1 = await matchRequest([pathParamMock], req1);
+        const body1 = await res1.json();
+        expect(res1.status).toBe(200);
+        expect(body1.name).toBe("User 123 (Low ID)");
+
+        // High ID
+        const req2 = new Request("/user/600");
+        const res2 = await matchRequest([pathParamMock], req2);
+        const body2 = await res2.json();
+        expect(res2.status).toBe(200);
+        expect(body2.name).toBe("User 600 (High ID)");
+
+        // Invalid ID
+        const req3 = new Request("/user/abc");
+        const res3 = await matchRequest([pathParamMock], req3);
+        const body3 = await res3.json();
+        expect(res3.status).toBe(200);
+        expect(body3.name).toBe("Invalid ID");
     });
 });

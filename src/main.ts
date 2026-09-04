@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { type IncomingMessage, type ServerResponse } from "node:http";
 import { type Plugin } from "vite";
 import createDebug from "debug";
-import { parseDelay } from "./common";
+import { getPathParameters, parseDelay } from "./common";
 import { type MiddlewareConfiguration } from "./middleware-configuration";
 import { type MockEntry } from "./mock-entry";
 import { type Mock } from "./mockfile";
@@ -49,7 +49,8 @@ const defaultConfig: MiddlewareConfiguration = {
 function findMachingIndex(url: string): number[] {
     function urlMatches(config: NormalizedEntry): boolean {
         if (config.inlineMock !== undefined) {
-            return new URL(url, "https://x").pathname === config.mockurl;
+            const requestPath = new URL(url, "https://x").pathname;
+            return getPathParameters(config.mockurl, requestPath) !== undefined;
         }
         return url.startsWith(config.mockurl);
     }
