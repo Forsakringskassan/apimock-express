@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [3.2.1](https://github.com/Forsakringskassan/apimock-express/compare/v3.2.0...v3.2.1) (2026-09-04)
+
+### Bug Fixes
+
+* remove version log ([cad6cfc](https://github.com/Forsakringskassan/apimock-express/commit/cad6cfccb08376c007b2b2e2d058705f31ba49b2))
+
 ## [3.2.0](https://github.com/Forsakringskassan/apimock-express/compare/v3.1.0...v3.2.0) (2026-08-21)
 
 ### Features
