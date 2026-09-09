@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [4.0.0](https://github.com/Forsakringskassan/apimock-express/compare/v3.2.1...v4.0.0) (2026-09-09)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** Vite v6 or later is now required.
+
+### Features
+
+* **deps:** require vite v6 or later ([a2ee84b](https://github.com/Forsakringskassan/apimock-express/commit/a2ee84b9f123438f4f3ae62bb3c7881b0dbd3cae))
+
 ## [3.2.1](https://github.com/Forsakringskassan/apimock-express/compare/v3.2.0...v3.2.1) (2026-09-04)
 
 ### Bug Fixes
