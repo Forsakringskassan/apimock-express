@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [4.1.0](https://github.com/Forsakringskassan/apimock-express/compare/v4.0.0...v4.1.0) (2026-09-11)
+
+### Features
+
+* support path parameters in inline mocks ([e10a08b](https://github.com/Forsakringskassan/apimock-express/commit/e10a08b9df11e226946d4673b39bb31e948cf3c5))
+
 ## [4.0.0](https://github.com/Forsakringskassan/apimock-express/compare/v3.2.1...v4.0.0) (2026-09-09)
 
 ### ⚠ BREAKING CHANGES
