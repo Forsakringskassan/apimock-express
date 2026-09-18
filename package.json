@@ -103,7 +103,7 @@
     "start-server-and-test": "3.0.12",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "vite": "8.3.0",
-    "vitest": "5.0.0"
+    "vitest": "5.0.1"
   },
   "peerDependencies": {
     "vite": "^6.4.0 || ^7.0.0 || ^8.0.0"
