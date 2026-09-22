@@ -161,12 +161,14 @@ const apimock = {
             return normalizeInlineMock(option, table);
         });
 
-        if (config.verbose) {
-            console.group(`apimock-express configuration`);
-            console.table(table);
-            console.log("Use DEBUG=apimock to see debugging messages");
-            console.groupEnd();
+        if (!config.verbose) {
+            return;
         }
+
+        console.group(`apimock-express configuration`);
+        console.table(table);
+        console.log("Use DEBUG=apimock to see debugging messages");
+        console.groupEnd();
     },
 
     /**

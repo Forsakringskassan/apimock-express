@@ -65,10 +65,12 @@ for (const format of ["cjs", "esm"]) {
         platform: "neutral",
     });
 
-    if (format === "esm") {
-        console.log(await esbuild.analyzeMetafile(result.metafile));
-        console.log(await esbuild.analyzeMetafile(result2.metafile));
+    if (format !== "esm") {
+        continue;
     }
+
+    console.log(await esbuild.analyzeMetafile(result.metafile));
+    console.log(await esbuild.analyzeMetafile(result2.metafile));
 }
 
 const browserResult = await esbuild.build({
