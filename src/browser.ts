@@ -116,18 +116,21 @@ async function matchResponseBrowser(
         }
 
         const pathParameters = getPathParameters(meta.url, relativeUrl);
-        if (pathParameters !== undefined && meta.method === options.method) {
-            const mockResponse = await selectResponse(
-                mock,
-                options.body,
-                { ...pathParameters, ...requestParameters },
-                options.bodyParameters,
-                options.headers,
-                cookies,
-            );
-            if (mockResponse) {
-                return mockResponse;
-            }
+        if (pathParameters === undefined || meta.method !== options.method) {
+            continue;
+        }
+
+        const mockResponse = await selectResponse(
+            mock,
+            options.body,
+            { ...pathParameters, ...requestParameters },
+            options.bodyParameters,
+            options.headers,
+            cookies,
+        );
+
+        if (mockResponse) {
+            return mockResponse;
         }
     }
 
