@@ -1,6 +1,9 @@
 import { getCookies } from "./browser/get-cookies";
 import { getRequestParamsFromUrl } from "./browser/get-request-params-from-url";
-import { type HttpMethod } from "./browser/index";
+import {
+    type HttpMethod,
+    type MatchResponseBrowserInterface,
+} from "./browser/index";
 import { getPathParameters, parseDelay, selectResponse } from "./common";
 import {
     type Mock,
@@ -67,17 +70,6 @@ export async function matchRequest(
         body = JSON.stringify(body);
     }
     return new Response(body as BodyInit, fetchOptions);
-}
-/**
- * @internal
- */
-interface MatchResponseBrowserInterface {
-    mockdata: Mock[];
-    requestUrl: string;
-    method: HttpMethod;
-    body: string;
-    bodyParameters: Record<string, unknown>;
-    headers: Record<string, string | string[] | undefined>;
 }
 
 /**
