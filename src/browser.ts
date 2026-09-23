@@ -1,5 +1,6 @@
 import { getCookies } from "./browser/get-cookies";
 import { getRequestParamsFromUrl } from "./browser/get-request-params-from-url";
+import { type HttpMethod } from "./browser/index";
 import { getPathParameters, parseDelay, selectResponse } from "./common";
 import {
     type Mock,
@@ -16,12 +17,8 @@ export {
     type MockResponse,
     type StaticMockResponse,
 } from "./mockfile";
+export { type HttpMethod } from "./browser/index";
 export { appendBasePath, selectResponse } from "./common";
-
-/**
- * @public
- */
-export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 /**
  * Match a Fetch `Request` against provided mock array
