@@ -91,7 +91,7 @@
     "@html-validate/release-scripts": "7.6.12",
     "@microsoft/api-extractor": "7.59.1",
     "@types/debug": "4.1.13",
-    "@types/node": "22.20.3",
+    "@types/node": "22.20.4",
     "@typescript/native": "npm:typescript@7.0.2",
     "cypress": "16.1.0",
     "esbuild": "0.28.2",
