@@ -3,4 +3,5 @@ dist/
 etc/*.api.md
 package-lock.json
 
+test/local/mockServiceWorker.js
 test/api/advanced/malformedfile.json
