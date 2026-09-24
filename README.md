@@ -733,7 +733,31 @@ const mock = defineMock({
 });
 ```
 
-## Browser mode
+## Browser mode (MSW)
+
+`@forsakringskassan/apimock-express` has optional support for [MSW](https://mswjs.io/):
+
+```ts
+import { setupWorker } from "@forsakringskassan/apimock-express/browser";
+
+await setupWorker("/mock-service-worker.js", [
+    {
+        meta: {
+            url: "/private/foo/basic",
+            method: "GET",
+        },
+        defaultResponse: {
+            body: {
+                foo: "bar",
+            },
+        },
+    },
+]);
+```
+
+The `/mock-service-worker.js` parameter should be the URL to the `msw/mockSerivceWorker.js` script.
+
+## Browser mode (manual)
 
 The matchRequest helper lets you run API mocks entirely in the browser.
 It accepts an array of mock definitions (created with defineMock) and a native Fetch `Request` object, and returns a simulated Fetch `Response` that behaves like a real response.
