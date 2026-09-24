@@ -8,11 +8,13 @@ import { matchRequest } from "./match-request";
  * @public
  * @param workerUrl - URL to the MSW service worker
  * @param mocks - List of mocks
+ * @param options - Optional service worker registration options
  * @returns A promise resolved when the service worker is ready to accept requests.
  */
 export async function setupWorker(
     workerUrl: string | URL,
     mocks: Mock[],
+    options?: RegistrationOptions,
 ): Promise<void> {
     const { http } = await import("msw");
     const { setupWorker: mswSetupWorker } = await import("msw/browser");
@@ -52,6 +54,6 @@ export async function setupWorker(
 
     const url = typeof workerUrl === "string" ? workerUrl : workerUrl.href;
     await worker.start({
-        serviceWorker: { url },
+        serviceWorker: { url, options },
     });
 }

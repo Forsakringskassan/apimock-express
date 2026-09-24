@@ -53,7 +53,7 @@ export type MockResponse<T = unknown> = StaticMockResponse<T> | DynamicMockRespo
 export function selectResponse(mockdata: Mock, body: string, requestparameters: Record<string, string | string[] | undefined>, bodyParameters: Record<string, unknown>, headers: Record<string, string | string[] | undefined>, cookies: Record<string, string>): Promise<StaticMockResponse | undefined>;
 
 // @public
-export function setupWorker(workerUrl: string | URL, mocks: Mock[]): Promise<void>;
+export function setupWorker(workerUrl: string | URL, mocks: Mock[], options?: RegistrationOptions): Promise<void>;
 
 // @public
 export interface StaticMockResponse<T = unknown> {
