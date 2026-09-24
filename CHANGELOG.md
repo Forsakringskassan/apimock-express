@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [4.2.1](https://github.com/Forsakringskassan/apimock-express/compare/v4.2.0...v4.2.1) (2026-09-24)
+
+### Bug Fixes
+
+* add optional registration options to `setupWorker()` ([d30b9e6](https://github.com/Forsakringskassan/apimock-express/commit/d30b9e6e48859af5df45c254a457af41e688c744))
+
 ## [4.2.0](https://github.com/Forsakringskassan/apimock-express/compare/v4.1.0...v4.2.0) (2026-09-24)
 
 ### Features
