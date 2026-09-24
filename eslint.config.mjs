@@ -15,6 +15,7 @@ export default [
             "**/dist/**",
             "**/node_modules/**",
             "**/temp/**",
+            "test/local/mockServiceWorker.js",
         ],
     }),
 
