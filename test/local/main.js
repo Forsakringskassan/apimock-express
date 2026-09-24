@@ -1,5 +1,6 @@
-import { matchRequest } from "@forsakringskassan/apimock-express/browser";
+import { setupWorker } from "@forsakringskassan/apimock-express/browser";
 import { defineMock } from "@forsakringskassan/apimock-express/helpers";
+import workerUrl from "./mockServiceWorker.js?url";
 
 const mocks = [
     defineMock({
@@ -26,15 +27,14 @@ const mocks = [
     }),
 ];
 
-const fetchResponse = await matchRequest(
-    mocks,
-    new Request("/private/foo/basic"),
-);
+console.log({ workerUrl });
+await setupWorker(workerUrl, mocks);
 
-const fetchResponsePost = await matchRequest(
-    mocks,
-    new Request("/private/foo/basic", { method: "POST" }),
-);
+const fetchResponse = await fetch("/private/foo/basic");
+
+const fetchResponsePost = await fetch("/private/foo/basic", {
+    method: "POST",
+});
 
 document.querySelector("#getResponse").textContent = JSON.stringify(
     await fetchResponse.json(),
