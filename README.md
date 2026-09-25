@@ -755,7 +755,7 @@ await setupWorker("/mock-service-worker.js", [
 ]);
 ```
 
-The `/mock-service-worker.js` parameter should be the URL to the `msw/mockSerivceWorker.js` script.
+The `/mock-service-worker.js` parameter should be the URL to the `msw/mockServiceWorker.js` script.
 
 ## Browser mode (manual)
 
