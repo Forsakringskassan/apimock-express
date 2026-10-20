@@ -69,6 +69,13 @@
     "vite:cjs": "start-server-and-test 'vite --config test/vite/vite.config.cts --port 8010' http-get://127.0.0.1:8010/index.html 'curl -v --no-progress-meter http://127.0.0.1:8010/api/foo'",
     "vite:mjs": "start-server-and-test 'vite --config test/vite/vite.config.mts --port 8020' http-get://127.0.0.1:8020/index.html 'curl -v --no-progress-meter http://127.0.0.1:8020/api/foo'"
   },
+  "allowScripts": {
+    "cypress": true,
+    "esbuild": true,
+    "fsevents": false,
+    "msw": false,
+    "unrs-resolver": true
+  },
   "commitlint": {
     "extends": "@forsakringskassan/commitlint-config/no-jira"
   },
@@ -87,7 +94,7 @@
     "@forsakringskassan/eslint-config-typescript": "15.12.0",
     "@forsakringskassan/eslint-config-typescript-typeinfo": "15.12.0",
     "@forsakringskassan/eslint-config-vitest": "15.12.0",
-    "@forsakringskassan/prettier-config": "3.7.12",
+    "@forsakringskassan/prettier-config": "3.7.13",
     "@html-validate/release-scripts": "7.6.16",
     "@microsoft/api-extractor": "7.59.4",
     "@types/debug": "4.1.13",
@@ -120,13 +127,6 @@
   },
   "engines": {
     "node": "^22 || >= 24"
-  },
-  "allowScripts": {
-    "cypress": true,
-    "esbuild": true,
-    "fsevents": false,
-    "msw": false,
-    "unrs-resolver": true
   },
   "externalDependencies": [
     "glob",
