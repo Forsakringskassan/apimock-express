@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [4.3.0](https://github.com/Forsakringskassan/apimock-express/compare/v4.2.1...v4.3.0) (2026-10-23)
+
+### Features
+
+* **deps:** support msw v3 ([bde9aa2](https://github.com/Forsakringskassan/apimock-express/commit/bde9aa2df81b87d84f3c83a7b881b82a68c1aeec))
+
 ## [4.2.1](https://github.com/Forsakringskassan/apimock-express/compare/v4.2.0...v4.2.1) (2026-09-24)
 
 ### Bug Fixes
