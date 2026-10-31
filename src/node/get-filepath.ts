@@ -1,5 +1,5 @@
+import fs from "node:fs/promises";
 import path from "node:path";
-import { glob } from "glob";
 import { type NormalizedEntry } from "../normalized-entry";
 import { appendMethodType } from "./append-method-type";
 
@@ -106,10 +106,18 @@ async function getFilepathInternal(
     filepath = normalizeSeparator(filepath);
     filepath = path.join(mockdir, filepath);
 
-    const options = { windowsPathsNoEscape: true };
-    const wildcard = await glob(wildcardPattern(filepath, req), options);
-    const files = await glob(globPattern(filepath, req), options);
-    const dirFiles = await glob(dirPattern(filepath, req), options);
+    const wildcard = await Array.fromAsync(
+        fs.glob(wildcardPattern(filepath, req).replaceAll("\\", "/")),
+        (it) => it.replaceAll("\\", "/"),
+    );
+    const files = await Array.fromAsync(
+        fs.glob(globPattern(filepath, req).replaceAll("\\", "/")),
+        (it) => it.replaceAll("\\", "/"),
+    );
+    const dirFiles = await Array.fromAsync(
+        fs.glob(dirPattern(filepath, req).replaceAll("\\", "/")),
+        (it) => it.replaceAll("\\", "/"),
+    );
 
     if (dirFiles.length > 0) {
         return dirFiles[0];

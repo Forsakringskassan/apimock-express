@@ -84,8 +84,7 @@
     "extends": "@forsakringskassan/semantic-release-config"
   },
   "dependencies": {
-    "debug": "^4.3.2",
-    "glob": "^13.0.0"
+    "debug": "^4.3.2"
   },
   "devDependencies": {
     "@forsakringskassan/commitlint-config": "4.2.8",
@@ -129,7 +128,6 @@
     "node": "^22 || >= 24"
   },
   "externalDependencies": [
-    "glob",
     "msw"
   ]
 }
