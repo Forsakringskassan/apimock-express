@@ -85,7 +85,7 @@
   },
   "dependencies": {
     "debug": "^4.3.2",
-    "glob": "^13.0.0"
+    "glob": "^14.0.0"
   },
   "devDependencies": {
     "@forsakringskassan/commitlint-config": "4.2.8",
