@@ -1,5 +1,5 @@
+import fs from "node:fs/promises";
 import path from "node:path";
-import { glob } from "glob";
 import { type Mock } from "../main";
 import { extractFileContent } from "./extract-file-content";
 
@@ -45,10 +45,12 @@ export async function generateForBrowser(
         ...defaultOptions,
         ...userOptions,
     };
-    const apiFiles = await glob([`${apiDirectory}/**/*.{js,json,cjs,mjs}`], {
-        posix: true,
-        cwd: options.rootPath,
-    });
+    const apiFiles = await Array.fromAsync(
+        fs.glob([`${apiDirectory}/**/*.{js,json,cjs,mjs}`], {
+            cwd: options.rootPath,
+        }),
+        (it) => it.replaceAll("\\", "/"),
+    );
 
     const data: Mock[] = [];
     for (const file of apiFiles) {
