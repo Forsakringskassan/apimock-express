@@ -96,7 +96,7 @@
     "@forsakringskassan/eslint-config-vitest": "15.13.0",
     "@forsakringskassan/prettier-config": "3.7.13",
     "@html-validate/release-scripts": "7.6.17",
-    "@microsoft/api-extractor": "7.59.4",
+    "@microsoft/api-extractor": "7.60.0",
     "@types/debug": "4.1.13",
     "@types/node": "22.20.5",
     "@typescript/native": "npm:typescript@7.0.2",
