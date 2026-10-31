@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import path from "node:path/posix";
 import { Extractor, ExtractorConfig } from "@microsoft/api-extractor";
 import * as esbuild from "esbuild";
-import { glob } from "glob";
 import isCI from "is-ci";
 
 const pkg = JSON.parse(await fs.readFile("package.json", "utf8"));
@@ -89,7 +88,9 @@ const browserResult = await esbuild.build({
 
 console.log(await esbuild.analyzeMetafile(browserResult.metafile));
 
-const configFiles = await glob("config/api-extractor.*.json");
+const configFiles = await Array.fromAsync(
+    fs.glob("config/api-extractor.*.json"),
+);
 const numFiles = configFiles.length;
 const strFiles = `${numFiles} file${numFiles === 1 ? "" : "s"}`;
 
