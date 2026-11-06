@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [4.4.0](https://github.com/Forsakringskassan/apimock-express/compare/v4.3.0...v4.4.0) (2026-11-06)
+
+### Features
+
+* **deps:** replace `glob` with native glob from `node:fs` ([2e18562](https://github.com/Forsakringskassan/apimock-express/commit/2e18562353631549904a65121641bcf49896fc15))
+
 ## [4.3.0](https://github.com/Forsakringskassan/apimock-express/compare/v4.2.1...v4.3.0) (2026-10-23)
 
 ### Features
