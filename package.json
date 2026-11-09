@@ -104,7 +104,7 @@
     "express": "5.3.0",
     "happy-dom": "21.0.4",
     "is-ci": "4.1.0",
-    "msw": "3.0.3",
+    "msw": "3.0.4",
     "npm-pkg-lint": "5.4.1",
     "npm-run-all2": "9.0.4",
     "start-server-and-test": "3.0.13",
